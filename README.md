@@ -40,28 +40,52 @@ Claude Code のフック（PreToolUse・PostToolUse）として動きます。�
 ### 必要なもの
 
 - Claude Code（2.1.322 で動作確認済み）
-- Go 1.22 以上（ビルドに使います。ビルド済みバイナリはまだ配布していません）
 - macOS または Linux。Windows でも動きますが、失敗時の出力は圧縮されません（[ラッパー方式と権限](#ラッパー方式と権限)）
 
-### 1. ダウンロードしてビルドする
+### 1. 実行ファイルをダウンロードする
+
+[Releases](https://github.com/yotatameguchi-boop/contextslim/releases/latest) から、自分の環境に合うファイルを選びます。
+
+| 環境 | ファイル名の末尾 |
+| --- | --- |
+| Mac（Apple シリコン：M1 以降） | `_darwin_arm64` |
+| Mac（Intel） | `_darwin_amd64` |
+| Linux（x86_64） | `_linux_amd64` |
+| Linux（ARM64） | `_linux_arm64` |
+| Windows | `_windows_amd64.exe` |
+
+ターミナルでダウンロードする場合の例（Apple シリコンの Mac）：
+
+```bash
+mkdir -p ~/.local/bin
+curl -fL -o ~/.local/bin/contextslim https://github.com/yotatameguchi-boop/contextslim/releases/download/v0.1.0/contextslim_v0.1.0_darwin_arm64
+chmod +x ~/.local/bin/contextslim
+```
+
+URL の末尾を、上の表の自分の環境に合わせて変えてください。
+
+> ブラウザでダウンロードした Mac では、初回の実行が「開発元を確認できない」と止められることがあります。そのときは `xattr -d com.apple.quarantine ~/.local/bin/contextslim` を実行してください（`curl` でダウンロードした場合は不要です）。
+
+<details>
+<summary>ソースからビルドする場合（Go 1.22 以上が必要）</summary>
 
 ```bash
 git clone https://github.com/yotatameguchi-boop/contextslim.git
 cd contextslim
 go build -o contextslim ./cmd/contextslim
-```
-
-`contextslim` という実行ファイルができます。
-
-### 2. 実行ファイルを PATH の通った場所に置く
-
-```bash
 mkdir -p ~/.local/bin
 mv contextslim ~/.local/bin/
+```
+
+</details>
+
+### 2. 動くか確認する
+
+```bash
 contextslim version
 ```
 
-`contextslim 0.1.0-dev ...` と表示されれば OK です。`command not found` になる場合は、`~/.local/bin` を PATH に追加してください（例：`~/.zshrc` に `export PATH="$HOME/.local/bin:$PATH"`）。
+`contextslim v0.1.0 ...` と表示されれば OK です。`command not found` になる場合は、`~/.local/bin` を PATH に追加してください（例：`~/.zshrc` に `export PATH="$HOME/.local/bin:$PATH"` を書いて、ターミナルを開き直す）。
 
 > 次の手順で、この**実行ファイルの場所**が Claude Code の設定に書き込まれます。あとで実行ファイルを移動したら、手順 3 をやり直してください。
 

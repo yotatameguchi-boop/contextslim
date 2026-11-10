@@ -1,12 +1,13 @@
 # ContextSlim
 
 Claude Code の Bash ツールが返すテスト結果・型チェック・Lint の出力を、**失敗情報を落とさずに**短くするローカル CLI です。
-Claude Code の PostToolUse フックとして動きます。外部 API は呼ばず、アカウント登録や常駐プロセスも不要です。
+Claude Code のフック（PreToolUse・PostToolUse）として動きます。外部 API は呼ばず、アカウント登録や常駐プロセスも不要です。
 
-> **重要な制約（Phase 0 の検証結果）**
-> Claude Code 2.1.322 では、終了コード≠0 のコマンド（失敗を含むテスト、エラーのある tsc / ruff）について `PostToolUseFailure` が発火し、出力を置換できません。
-> そのため、実際に置換されるのは**終了コード0の出力**（全件成功したテストなど）だけです。失敗時は原文をそのまま通し、削減候補を統計に記録します。
-> 詳細と、接続方式を見直す場合の選択肢は [docs/phase0.md](docs/phase0.md) を参照してください。
+> **失敗したテストの出力も圧縮します（ラッパー方式、既定）**
+> Claude Code 2.1.322 では、終了コード≠0 のコマンドの出力を PostToolUse で置換できません（[docs/phase0.md](docs/phase0.md)）。
+> そこで ContextSlim は、対応コマンドを PreToolUse フックで `contextslim run -- <元のコマンド>` に差し替え、
+> ラッパーが実行・原文保存・圧縮を行って**元と同じ終了コード**で終了します。失敗を含むテスト結果やエラーのある tsc / ruff も圧縮されます。
+> ラップするのは、元のコマンドを Claude Code が確認なしで実行する場合だけです（下の「ラッパー方式と権限」）。
 
 入力トークンの削減率は、サブスクリプション利用枠の改善率とは一致しません。利用可能時間の延長や上限到達の回避は保証しません。
 
@@ -50,7 +51,7 @@ PATH の通った場所にバイナリを置き、対象プロジェクトで次
 contextslim install
 ```
 
-`.claude/settings.local.json` に `PostToolUse` と `PostToolUseFailure` のフックを登録します。チームで共有する `.claude/settings.json` に登録するときは `--shared`、全プロジェクトに登録するときは `--user` を付けます。
+`.claude/settings.local.json` に `PreToolUse`・`PostToolUse`・`PostToolUseFailure` のフックを登録します。チームで共有する `.claude/settings.json` に登録するときは `--shared`、全プロジェクトに登録するときは `--user` を付けます。
 
 - 既存の設定はキーの順序も含めて保持し、ContextSlim のフックだけを追加・更新します（インデントは 2 スペースに揃えます）。
 - 変更前に `<設定ファイル>.contextslim-backup-<日時>` を作成します。
@@ -63,6 +64,38 @@ contextslim install
 contextslim stats
 contextslim mode compress
 ```
+
+## ラッパー方式と権限
+
+`method` が `wrap`（既定）で compress モードのとき、次の流れで動きます。
+
+```text
+Claude が Bash で「npx vitest run」を実行しようとする
+  → PreToolUse フック: 条件を満たせば
+       "<contextslim> run --session <key> --cmd <base64> -- npx vitest run" に差し替え、許可を返す
+  → contextslim run: npx vitest run を同じ引数・環境変数・作業ディレクトリ・標準入力で実行
+       stdout/stderr をまとめて受け取り、原文を保存して圧縮（できなければ原文をそのまま）表示
+       vitest の終了コードで終了（シグナルで終了した場合は 128+N）
+  → Claude には「Exit code 1」と圧縮結果が届く
+```
+
+**権限について（重要）**：実機で確認したところ、Claude Code は差し替え**後**のコマンドに対して権限を判定します。元のコマンドへの許可ルールは効かず、**拒否（deny）・確認（ask）ルールもすり抜けます**。
+そのため ContextSlim は、次の**すべて**を満たすときだけラップし、元のコマンドに対して Claude Code が出すはずの判定（許可）を返します。
+
+1. どの設定ファイル（managed / ユーザー / プロジェクト / ローカル）の deny・ask ルールにも、元のコマンドが一致し得ない（判定は広めにとり、読めないルールは「一致する」とみなす）
+2. 元のコマンドが allow ルールに確実に一致する、またはセッションが bypassPermissions モード（plan モードではラップしない）
+3. 起動元の `claude` に、ContextSlim から見えないルールを足すオプション（`--disallowedTools`、`--settings`、`--setting-sources`、`--permission-prompt-tool`）がない。`--allowedTools` の許可ルールは読み取って使う（Linux のみ）
+4. 起動元の `claude` プロセスを確認できる（Linux・macOS。**Windows ではラップしない**）
+
+どれか一つでも満たさないときはラップせず、コマンドは ContextSlim がない場合とまったく同じように扱われます（終了コード0なら従来どおり PostToolUse で圧縮）。ラップしなかった理由は `contextslim stats` に出ます。
+
+**ラッパー方式の注意点**
+
+- コマンドの出力は終了後にまとめて表示されます（実行中の逐次表示はありません）。
+- Claude Code のタイムアウトなどで SIGTERM / SIGINT を受けた場合は、コマンドに転送し、それまでの出力を原文のまま表示します。SIGKILL で強制終了された場合はその出力が失われます。
+- `run_in_background` で実行されるコマンドはラップしません。
+- 出力が `max_input_bytes` を超えた場合は、その時点から原文をそのまま流します。
+- ラップしたくない場合は `config.json` で `"method": "post_tool_use"` にします（終了コード0の出力だけを圧縮）。
 
 ## コマンド
 
@@ -77,6 +110,7 @@ contextslim mode compress
 | `contextslim prune [--dry-run]` | 保存期限と容量上限に基づいて整理 |
 | `contextslim config` | 設定ファイルの場所と内容を表示 |
 | `contextslim hook` | フック本体（Claude Code から呼ばれる） |
+| `contextslim run --session KEY --cmd B64 -- CMD...` | ラッパー本体（PreToolUse フックが差し替えるコマンド） |
 
 ## 設定
 
@@ -85,6 +119,7 @@ contextslim mode compress
 | 項目 | 初期値 | 内容 |
 | --- | --- | --- |
 | `mode` | `observe` | `observe` / `compress` |
+| `method` | `wrap` | `wrap`：ラッパー方式（失敗時も圧縮）／ `post_tool_use`：終了コード0の出力のみ |
 | `enabled_parsers` | 全5種 | 有効な解析器 |
 | `min_input_bytes` | 4096 | これより小さい出力は圧縮しない |
 | `min_savings_bytes` | 1024 | 最小削減バイト数（案内2行を含めて計算） |
@@ -158,7 +193,9 @@ metrics/<session-key>.jsonl       セッションごとのイベント
 
 ruff と tsc の plain 形式は、診断がすべて異なる限りほとんど削減できません（最小削減量の条件により原文を通します）。これは、異なる診断を統合しないという方針どおりの結果です。
 
-上の表の多くは失敗を含むログで、現状の Claude Code では**置換されず観測のみ**になります（冒頭の制約を参照）。
+失敗を含むログは、ラッパー方式（既定）で圧縮されます。`method: post_tool_use` では観測のみになります。
+
+実機（Claude Code 2.1.322）では、失敗を含む Vitest 405件（`npx vitest run`、終了コード1）がラッパー経由で 4.1 KiB → 2.9 KiB になり、失敗3件の内容・位置・要約がそのまま Claude に届きました。
 
 ## 開発
 
@@ -175,6 +212,7 @@ go test ./internal/pipeline -run '^$' -bench .  # 1 MiB ログのベンチマー
 | `cmd/contextslim` | エントリーポイント |
 | `internal/cli` | サブコマンド、doctor |
 | `internal/claude` | フックの入出力、設定ファイルの登録・解除（キー順を保持） |
+| `internal/permissions` | ラップしてよいかの判定（設定ファイルの権限ルール、起動元 claude のオプション） |
 | `internal/pipeline` | フック処理の流れ（設計書 6章） |
 | `internal/detect` | コマンドの字句解析と対象判定（実行・展開はしない） |
 | `internal/parser` | vitest / jest / tsc / pytest / ruff の解析器 |
@@ -195,6 +233,6 @@ go test ./internal/pipeline -run '^$' -bench .  # 1 MiB ログのベンチマー
 | 推定トークン数の算出方式 | 未選定（既定 `none`） |
 | 性能目標・最小削減量 | 上の計測値。最小削減量は初期値のまま |
 | 保存期間・容量上限 | 初期値（7日、500 MiB） |
-| 失敗時の出力の扱い | **新規**：接続方式の見直しが必要（[docs/phase0.md](docs/phase0.md)） |
+| 失敗時の出力の扱い | ラッパー方式で対応（Linux・macOS）。Windows は終了コード0の出力のみ |
 
 評価方法 7.2（同じ課題で圧縮なし／ありを複数回比較する評価）は、まだ実施していません。

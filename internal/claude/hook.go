@@ -24,12 +24,13 @@ import (
 // HookInput is the subset of the PostToolUse input ContextSlim reads. The raw
 // tool_response is kept byte-for-byte so unknown fields survive.
 type HookInput struct {
-	SessionID     string          `json:"session_id"`
-	CWD           string          `json:"cwd"`
-	HookEventName string          `json:"hook_event_name"`
-	ToolName      string          `json:"tool_name"`
-	ToolInput     json.RawMessage `json:"tool_input"`
-	ToolResponse  json.RawMessage `json:"tool_response"`
+	SessionID      string          `json:"session_id"`
+	CWD            string          `json:"cwd"`
+	PermissionMode string          `json:"permission_mode"`
+	HookEventName  string          `json:"hook_event_name"`
+	ToolName       string          `json:"tool_name"`
+	ToolInput      json.RawMessage `json:"tool_input"`
+	ToolResponse   json.RawMessage `json:"tool_response"`
 	// PostToolUseFailure only.
 	Error       string `json:"error"`
 	IsInterrupt bool   `json:"is_interrupt"`

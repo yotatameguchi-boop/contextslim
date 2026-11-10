@@ -88,3 +88,27 @@ stderr は通常 stdout に統合されて届く（上の例では `err` が std
 - 統計に「原文の再取得 1回」が記録された
 
 この検証で、原文の整合性チェックが失敗する不具合を発見し、修正した（`json.Marshal` が `>` `&` をエスケープするため、保存したバイト列とハッシュが一致しなかった）。回帰テストを追加済み。
+
+## 追加検証：PreToolUse によるコマンド差し替え（ラッパー方式）
+
+失敗時の出力も圧縮するため、選択肢 2（PreToolUse でのコマンドラッパー）を検証して採用した。
+
+| 確認項目 | 結果 |
+| --- | --- |
+| `updatedInput` でコマンドを差し替えられるか | ✅ 差し替え後のコマンドが実行される。PostToolUse にも差し替え後のコマンドが渡る |
+| 差し替え後の終了コードがそのまま扱われるか | ✅ 終了コード4 → `PostToolUseFailure`、モデルには `Exit code 4` とラッパーの出力が届く |
+| `permissionDecision: "allow"` と `updatedInput` の併用 | ✅ 確認なしで差し替え後のコマンドが実行される |
+| 元のコマンドへの allow ルール | ❌ **効かない**。差し替え後のコマンドが許可待ちになる |
+| 差し替え後のコマンドへの deny ルール | ✅ 効く |
+| 元のコマンドへの deny ルール | ❌ **すり抜ける**。差し替え後のコマンドが実行された |
+| フックから起動元 claude のオプションが見えるか | ✅ Linux では `/proc` で親プロセスの argv（`--allowedTools` / `--disallowedTools` を含む）を読める。フック入力に権限ルールは含まれない |
+
+元のコマンドへの deny / ask ルールがすり抜けるため、ContextSlim は「元のコマンドを Claude Code が確認なしで実行する」と確認できた場合だけラップする（README「ラッパー方式と権限」）。
+
+### 実機での確認（ContextSlim 本体）
+
+- `--allowedTools "Bash(npx vitest:*)"` で失敗を含む `npx vitest run vbig`（終了コード1）を実行させた
+  - Claude に届いた出力：`Exit code 1` の後に ContextSlim の案内2行と圧縮結果（4.1 KiB → 2.9 KiB）。失敗3件の内容・位置・要約はそのまま
+  - Claude は案内に従って `show` で原文を取得した
+- `"deny": ["Bash(npx vitest:*)"]` を設定し、`--allowedTools "Bash"` で同じコマンドを実行させた
+  - ContextSlim はラップせず（理由 `denied_by_rule`）、Claude Code が元のコマンドを拒否した

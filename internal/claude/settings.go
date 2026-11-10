@@ -13,10 +13,11 @@ import (
 	"time"
 )
 
-// HookEvents are the events ContextSlim registers for. PostToolUse replaces
-// output of commands that exit 0; PostToolUseFailure (non-zero exit) cannot
-// replace output and is used for observation statistics only.
-var HookEvents = []string{"PostToolUse", "PostToolUseFailure"}
+// HookEvents are the events ContextSlim registers for. PreToolUse wraps
+// supported commands with `contextslim run` (method "wrap"); PostToolUse
+// replaces output of unwrapped commands that exit 0; PostToolUseFailure
+// (non-zero exit, cannot replace output) is used for statistics only.
+var HookEvents = []string{"PreToolUse", "PostToolUse", "PostToolUseFailure"}
 
 // HookTimeoutSeconds is the timeout registered for the hook. The processing
 // budget (config processing_budget_ms) is kept well below it.

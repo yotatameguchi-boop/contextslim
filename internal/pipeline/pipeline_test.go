@@ -114,7 +114,7 @@ func TestFallbacks(t *testing.T) {
 		mutate func(*Env)
 	}{
 		{"invalid json", []byte("{not json"), ReasonBadJSON, nil},
-		{"other event", []byte(`{"hook_event_name":"PreToolUse","tool_name":"Bash"}`), ReasonNotPostToolUse, nil},
+		{"other event", []byte(`{"hook_event_name":"Notification","tool_name":"Bash"}`), ReasonNotPostToolUse, nil},
 		{"other tool", []byte(`{"hook_event_name":"PostToolUse","tool_name":"Read","tool_response":{}}`), ReasonNotBash, nil},
 		{"schema", []byte(`{"hook_event_name":"PostToolUse","tool_name":"Bash","tool_input":{"command":"pytest"},"tool_response":"text"}`), ReasonSchema, nil},
 		{"self", hookInput("s", "contextslim show cs_0123456789abcdef0123", big, nil), ReasonSelf, nil},

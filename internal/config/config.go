@@ -17,6 +17,15 @@ const (
 	ModeCompress = "compress"
 )
 
+// Methods.
+const (
+	// MethodWrap rewrites supported commands in PreToolUse to run through
+	// `contextslim run`, so failing runs (non-zero exit) are compressed too.
+	MethodWrap = "wrap"
+	// MethodPostToolUse only replaces output in PostToolUse (exit 0 only).
+	MethodPostToolUse = "post_tool_use"
+)
+
 // Token estimators.
 const (
 	// EstimatorNone shows byte counts only (default). See design 12.
@@ -32,6 +41,7 @@ var AllParsers = []string{"vitest", "jest", "tsc", "pytest", "ruff"}
 // Config is the persisted configuration (config.json in the data directory).
 type Config struct {
 	Mode                 string   `json:"mode"`
+	Method               string   `json:"method"`
 	EnabledParsers       []string `json:"enabled_parsers"`
 	MinInputBytes        int      `json:"min_input_bytes"`
 	MinSavingsBytes      int      `json:"min_savings_bytes"`
@@ -48,6 +58,7 @@ type Config struct {
 func Default() Config {
 	return Config{
 		Mode:                 ModeObserve,
+		Method:               MethodWrap,
 		EnabledParsers:       append([]string(nil), AllParsers...),
 		MinInputBytes:        4096,
 		MinSavingsBytes:      1024,
@@ -67,6 +78,11 @@ func (c Config) Validate() error {
 	case ModeObserve, ModeCompress:
 	default:
 		return fmt.Errorf("mode must be %q or %q, got %q", ModeObserve, ModeCompress, c.Mode)
+	}
+	switch c.Method {
+	case MethodWrap, MethodPostToolUse:
+	default:
+		return fmt.Errorf("method must be %q or %q, got %q", MethodWrap, MethodPostToolUse, c.Method)
 	}
 	known := map[string]bool{}
 	for _, p := range AllParsers {

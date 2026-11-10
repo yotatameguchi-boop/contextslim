@@ -3,6 +3,7 @@ package pipeline
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"regexp"
@@ -53,6 +54,9 @@ const (
 	// event (non-zero exit). Claude Code 2.1.322 cannot replace output on that
 	// path, so these are always observation-only.
 	ReasonFailureEvent = "failure_event_not_replaceable"
+	// ReasonWrapped marks PostToolUse(Failure) events of commands that ran
+	// through `contextslim run`; the wrapper already handled them.
+	ReasonWrapped = "wrapped_command"
 )
 
 var exitCodePrefix = regexp.MustCompile(`^Exit code -?\d+\n`)
@@ -63,6 +67,8 @@ type Env struct {
 	Store   *store.Store
 	ShowCmd string // how Claude should invoke ContextSlim, e.g. "contextslim"
 	Now     func() time.Time
+	// Perm supplies permission rules for the wrap decision (nil = real).
+	Perm PermProvider
 }
 
 // Outcome is the result of processing one hook invocation.
@@ -72,6 +78,11 @@ type Outcome struct {
 	Output     []byte
 	Event      metrics.Event
 	SessionKey string
+	// Text is the compressed text (set when Event.Action is compressed).
+	Text string
+	// NoRecord suppresses the metrics event (e.g. PostToolUse of a wrapped
+	// command, already recorded by the wrapper).
+	NoRecord bool
 }
 
 func skip(o *Outcome, reason string) *Outcome {
@@ -99,6 +110,9 @@ func Process(env Env, input []byte) (out *Outcome) {
 	if in.HookEventName == "PostToolUseFailure" {
 		return processFailure(env, o, in)
 	}
+	if in.HookEventName == "PreToolUse" {
+		return preToolUse(env, o, in)
+	}
 	if in.HookEventName != "PostToolUse" {
 		return skip(o, ReasonNotPostToolUse)
 	}
@@ -110,6 +124,10 @@ func Process(env Env, input []byte) (out *Outcome) {
 		return skip(o, ReasonSchema)
 	}
 	command := in.Command()
+	if IsWrapped(command) {
+		o.NoRecord = true
+		return skip(o, ReasonWrapped)
+	}
 	if isSelfCommand(command) {
 		return skip(o, ReasonSelf)
 	}
@@ -268,6 +286,7 @@ func tryField(env Env, o *Outcome, in *claude.HookInput, resp *claude.BashRespon
 		return ReasonInternal
 	}
 	o.Output = outJSON
+	o.Text = final
 	o.Event.Action = metrics.ActionCompressed
 	o.Event.RawID = id
 	o.Event.BytesOut = len(final)
@@ -310,6 +329,10 @@ func processFailure(env Env, o *Outcome, in *claude.HookInput) *Outcome {
 		return skip(o, ReasonInterrupted)
 	}
 	command := in.Command()
+	if IsWrapped(command) {
+		o.NoRecord = true
+		return skip(o, ReasonWrapped)
+	}
 	if isSelfCommand(command) {
 		return skip(o, ReasonSelf)
 	}
@@ -327,6 +350,50 @@ func processFailure(env Env, o *Outcome, in *claude.HookInput) *Outcome {
 	o.Event.Reason = ReasonFailureEvent
 	o.Output = nil
 	return o
+}
+
+// CompressOutput compresses the combined output of a command run by
+// `contextslim run`. On success o.Text holds the text to print; otherwise the
+// caller prints the original output unchanged.
+func CompressOutput(env Env, sessionKey, command, output string) (out *Outcome) {
+	o := &Outcome{SessionKey: sessionKey}
+	o.Event.Mode = env.Config.Mode
+	o.Event.Via = "wrapper"
+	defer func() {
+		if r := recover(); r != nil {
+			out = skip(o, ReasonInternal)
+		}
+	}()
+	if env.Config.Mode != config.ModeCompress {
+		return skip(o, "observe_mode")
+	}
+	match, err := detect.Analyze(command)
+	if err != nil {
+		return skip(o, ReasonCommand)
+	}
+	resp, err := marshalNoEscape(map[string]any{"stdout": output, "stderr": "", "interrupted": false})
+	if err != nil {
+		return skip(o, ReasonInternal)
+	}
+	ti, _ := marshalNoEscape(map[string]string{"command": command})
+	in := &claude.HookInput{ToolName: "Bash", ToolInput: ti, ToolResponse: resp}
+	if output == "" {
+		return skip(o, ReasonTooSmall)
+	}
+	if r := tryField(env, o, in, nil, match, "stdout", output, false); r != "" {
+		return skip(o, r)
+	}
+	return o
+}
+
+func marshalNoEscape(v any) ([]byte, error) {
+	var b bytes.Buffer
+	enc := json.NewEncoder(&b)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(v); err != nil {
+		return nil, err
+	}
+	return bytes.TrimRight(b.Bytes(), "\n"), nil
 }
 
 // isSelfCommand reports whether the Bash command runs ContextSlim itself

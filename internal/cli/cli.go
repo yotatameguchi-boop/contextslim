@@ -35,6 +35,7 @@ const usage = `ContextSlim — Claude Code のテスト／診断ログを情報�
   contextslim prune [--dry-run]                             期限・容量に基づき保存データを整理
   contextslim config                                        設定ファイルの場所と内容を表示
   contextslim hook                                          （Claude Code から呼ばれる）フック本体
+  contextslim run --session KEY --cmd B64 -- CMD...        （フックが差し替える）コマンドを実行して出力を圧縮
   contextslim version
 
 データ保存先は CONTEXTSLIM_HOME で変更できます。
@@ -51,6 +52,8 @@ func Main(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	switch cmd {
 	case "hook":
 		return runHook(stdin, stdout, stderr)
+	case "run":
+		return runWrapped(rest, stdin, stdout, stderr)
 	case "install":
 		err = runInstall(rest, stdout, false)
 	case "uninstall":
@@ -156,7 +159,9 @@ func runHook(stdin io.Reader, stdout, stderr io.Writer) (code int) {
 		}
 	}
 	// Statistics failures never affect the result.
-	_ = metrics.Append(st.MetricsDir(), outcome.SessionKey, outcome.Event)
+	if !outcome.NoRecord {
+		_ = metrics.Append(st.MetricsDir(), outcome.SessionKey, outcome.Event)
+	}
 	if debug {
 		fmt.Fprintf(stderr, "contextslim: %s\n", pipeline.Describe(outcome))
 	}
@@ -404,6 +409,22 @@ func runStats(args []string, stdout io.Writer) error {
 		})
 		for _, k := range keys {
 			fmt.Fprintf(w, "    %-30s %d\n", k, s.SkipReasons[k])
+		}
+	}
+	if s.Wrapped > 0 || len(s.NotWrapped) > 0 || s.WrapperRuns > 0 {
+		fmt.Fprintln(w)
+		fmt.Fprintf(w, "ラッパー（method=wrap）\n")
+		fmt.Fprintf(w, "  ラップしたコマンド  %d 回（うち圧縮して表示 %d 回、失敗終了の圧縮 %d 回）\n", s.Wrapped, s.WrapperCompressed, s.WrapperFailing)
+		if len(s.NotWrapped) > 0 {
+			fmt.Fprintln(w, "  ラップしなかった理由")
+			var keys []string
+			for k := range s.NotWrapped {
+				keys = append(keys, k)
+			}
+			sort.Strings(keys)
+			for _, k := range keys {
+				fmt.Fprintf(w, "    %-30s %d\n", k, s.NotWrapped[k])
+			}
 		}
 	}
 	fmt.Fprintln(w)

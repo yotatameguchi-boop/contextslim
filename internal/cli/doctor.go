@@ -11,11 +11,13 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strconv"
 	"time"
 
 	"github.com/yotatameguchi-boop/contextslim/internal/claude"
 	"github.com/yotatameguchi-boop/contextslim/internal/config"
+	"github.com/yotatameguchi-boop/contextslim/internal/permissions"
 	"github.com/yotatameguchi-boop/contextslim/internal/store"
 	"github.com/yotatameguchi-boop/contextslim/internal/version"
 )
@@ -103,8 +105,35 @@ func runDoctor(args []string, stdout, stderr io.Writer) int {
 	if installed > 0 && !failureHook {
 		d.warn("PostToolUseFailure の観測フックがありません（失敗終了時の削減候補が統計に出ません）。contextslim install を再実行してください")
 	}
-	d.info("制約: 終了コードが0以外のコマンド（失敗したテスト、エラーのある tsc / ruff）は Claude Code が PostToolUseFailure を発火し、")
-	d.info("      出力の置換を受け付けません（2.1.322 で確認）。ContextSlim はその場合も原文を通し、削減候補を統計に記録するだけです。")
+	preHook := false
+	for _, p := range paths {
+		if refs, err := claude.ScanEvent(p, "PreToolUse"); err == nil {
+			for _, r := range refs {
+				preHook = preHook || r.Owned
+			}
+		}
+	}
+	dirForCfg, _ := dataDir()
+	method := cfg0(dirForCfg).Method
+	if method == config.MethodWrap {
+		switch {
+		case installed > 0 && !preHook:
+			d.warn("method=wrap ですが PreToolUse フックがありません。contextslim install を再実行してください")
+		case runtime.GOOS == "windows":
+			d.warn("Windows では起動元の claude のオプションを確認できないため、ラップは行いません（終了コード0の出力のみ圧縮）")
+		default:
+			if info, err := permissions.InspectClaude(); err == nil {
+				d.ok("ラッパー: 起動元の claude（PID %d）のオプションを確認できます", info.PID)
+			} else {
+				d.info("ラッパー: Claude Code の外から実行しているため、起動元の claude は確認できません（フックとして呼ばれたときに確認します）")
+			}
+		}
+		d.info("method=wrap: 対応コマンドを `contextslim run` 経由で実行し、失敗時（終了コード≠0）の出力も圧縮します。")
+		d.info("  ラップするのは、元のコマンドが許可ルール（または bypassPermissions）で許可され、拒否・確認ルールに一致しない場合だけです。")
+		d.info("  Claude Code はラップ後のコマンドに対して権限を判定するため、この確認を ContextSlim が代わりに行います。")
+	} else {
+		d.info("method=post_tool_use: 終了コードが0以外のコマンドは Claude Code が出力の置換を受け付けないため、原文を通して統計のみ記録します。")
+	}
 	if installed == 0 {
 		d.warn("ContextSlim のフックが登録されていません（contextslim install）")
 	} else if installed > 1 {

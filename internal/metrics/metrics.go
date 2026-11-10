@@ -22,10 +22,12 @@ import (
 
 // Actions.
 const (
-	ActionCompressed = "compressed" // output was replaced
-	ActionObserved   = "observed"   // observe mode: candidate built, output unchanged
-	ActionSkipped    = "skipped"    // passed through unchanged
-	ActionShow       = "show"       // original output re-fetched
+	ActionCompressed = "compressed"  // output was replaced
+	ActionObserved   = "observed"    // observe mode: candidate built, output unchanged
+	ActionSkipped    = "skipped"     // passed through unchanged
+	ActionShow       = "show"        // original output re-fetched
+	ActionWrapped    = "wrapped"     // PreToolUse: command rewritten to `contextslim run`
+	ActionNotWrapped = "not_wrapped" // PreToolUse: supported command left as is
 )
 
 // Event is one JSONL line.
@@ -44,6 +46,12 @@ type Event struct {
 	TokensOutEst  int    `json:"tokens_out_est,omitempty"`
 	DurationUS    int64  `json:"duration_us,omitempty"`
 	RawID         string `json:"raw_id,omitempty"`
+	// Hook is the Claude Code event ("PreToolUse" for wrap decisions); empty
+	// for PostToolUse(Failure) and wrapper runs.
+	Hook string `json:"hook,omitempty"`
+	// Via is "wrapper" for events recorded by `contextslim run`.
+	Via      string `json:"via,omitempty"`
+	ExitCode *int   `json:"exit_code,omitempty"`
 }
 
 // EstimateTokens returns an estimated token count, or 0 when the estimator is
@@ -135,25 +143,31 @@ type Summary struct {
 	Observed   int `json:"observed"`
 	// ObservedFailure counts observed candidates from non-zero-exit commands,
 	// which Claude Code does not allow to be replaced.
-	ObservedFailure    int                       `json:"observed_failure_path"`
-	ObservedFailureIn  int64                     `json:"observed_failure_bytes_in"`
-	ObservedFailureOut int64                     `json:"observed_failure_bytes_out"`
-	Skipped            int                       `json:"skipped"`
-	SkipReasons        map[string]int            `json:"skip_reasons"`
-	CompressedIn       int64                     `json:"compressed_bytes_in"`
-	CompressedOut      int64                     `json:"compressed_bytes_out"`
-	ObservedIn         int64                     `json:"observed_bytes_in"`
-	ObservedOut        int64                     `json:"observed_bytes_out"`
-	Estimators         []string                  `json:"token_estimators"`
-	TokensInEst        int64                     `json:"tokens_in_est"`
-	TokensOutEst       int64                     `json:"tokens_out_est"`
-	Shows              int                       `json:"raw_refetches"`
-	DurationP50US      int64                     `json:"duration_p50_us"`
-	DurationP95US      int64                     `json:"duration_p95_us"`
-	DurationMaxUS      int64                     `json:"duration_max_us"`
-	PerParser          map[string]*ParserSummary `json:"per_parser"`
-	ToolVersions       map[string][]string       `json:"tool_versions"`
-	ParserVersions     []string                  `json:"parser_versions"`
+	ObservedFailure    int            `json:"observed_failure_path"`
+	ObservedFailureIn  int64          `json:"observed_failure_bytes_in"`
+	ObservedFailureOut int64          `json:"observed_failure_bytes_out"`
+	Skipped            int            `json:"skipped"`
+	SkipReasons        map[string]int `json:"skip_reasons"`
+	CompressedIn       int64          `json:"compressed_bytes_in"`
+	CompressedOut      int64          `json:"compressed_bytes_out"`
+	ObservedIn         int64          `json:"observed_bytes_in"`
+	ObservedOut        int64          `json:"observed_bytes_out"`
+	Estimators         []string       `json:"token_estimators"`
+	TokensInEst        int64          `json:"tokens_in_est"`
+	TokensOutEst       int64          `json:"tokens_out_est"`
+	Shows              int            `json:"raw_refetches"`
+	// Wrapper statistics (method "wrap").
+	Wrapped           int                       `json:"wrapped"`
+	NotWrapped        map[string]int            `json:"not_wrapped_reasons"`
+	WrapperRuns       int                       `json:"wrapper_runs"`
+	WrapperCompressed int                       `json:"wrapper_compressed"`
+	WrapperFailing    int                       `json:"wrapper_compressed_nonzero_exit"`
+	DurationP50US     int64                     `json:"duration_p50_us"`
+	DurationP95US     int64                     `json:"duration_p95_us"`
+	DurationMaxUS     int64                     `json:"duration_max_us"`
+	PerParser         map[string]*ParserSummary `json:"per_parser"`
+	ToolVersions      map[string][]string       `json:"tool_versions"`
+	ParserVersions    []string                  `json:"parser_versions"`
 }
 
 // ParserSummary is per-parser aggregation.
@@ -172,7 +186,7 @@ type ParserSummary struct {
 
 // Summarize aggregates events.
 func Summarize(events []Event, sessions int) Summary {
-	s := Summary{Sessions: sessions, SkipReasons: map[string]int{}, PerParser: map[string]*ParserSummary{}, ToolVersions: map[string][]string{}}
+	s := Summary{Sessions: sessions, SkipReasons: map[string]int{}, NotWrapped: map[string]int{}, PerParser: map[string]*ParserSummary{}, ToolVersions: map[string][]string{}}
 	var durs []int64
 	estimators := map[string]bool{}
 	pversions := map[string]bool{}
@@ -181,6 +195,23 @@ func Summarize(events []Event, sessions int) Summary {
 		if e.Action == ActionShow {
 			s.Shows++
 			continue
+		}
+		if e.Hook == "PreToolUse" {
+			if e.Action == ActionWrapped {
+				s.Wrapped++
+			} else {
+				s.NotWrapped[e.Reason]++
+			}
+			continue
+		}
+		if e.Via == "wrapper" {
+			s.WrapperRuns++
+			if e.Action == ActionCompressed {
+				s.WrapperCompressed++
+			}
+			if e.Action == ActionCompressed && e.ExitCode != nil && *e.ExitCode != 0 {
+				s.WrapperFailing++
+			}
 		}
 		s.HookRuns++
 		durs = append(durs, e.DurationUS)

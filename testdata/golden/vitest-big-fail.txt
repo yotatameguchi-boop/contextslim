@@ -1,0 +1,75 @@
+[contextslim] vitest output compressed. Removed: 41 passing-test lines, 24 ANSI colour codes. Failures, errors, diagnostics and the tool's own summary are verbatim below.
+[contextslim] Full original (114 lines): contextslim show cs_00000000000000000000   (range: --from N --to M)
+
+ RUN  v3.2.7 /home/dev/project/js
+
+stdout | vbig/fail.test.ts > pricing > logs
+debug value 42
+
+ ❯ vbig/fail.test.ts (5 tests | 3 failed | 1 skipped) 10ms
+   × pricing > computes total 7ms
+     → expected { total: 10, tax: 1 } to deeply equal { total: 11, tax: 1 }
+   × pricing > rounds 1ms
+     → expected '1.00' to be '1.01' // Object.is equality
+   ↓ pricing > later
+   × pricing > throws 0ms
+     → Cannot read properties of undefined (reading 'id')
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  vbig/fail.test.ts > pricing > computes total
+AssertionError: expected { total: 10, tax: 1 } to deeply equal { total: 11, tax: 1 }
+
+- Expected
++ Received
+
+  {
+    "tax": 1,
+-   "total": 11,
++   "total": 10,
+  }
+
+ ❯ vbig/fail.test.ts:3:62
+      1| import { describe, it, expect } from 'vitest'
+      2| describe('pricing', () => {
+      3|   it('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({…
+       |                                                              ^
+      4|   it('rounds', () => { expect(1.005.toFixed(2)).toBe('1.01') })
+      5|   it.skip('later', () => {})
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  vbig/fail.test.ts > pricing > rounds
+AssertionError: expected '1.00' to be '1.01' // Object.is equality
+
+Expected: "1.01"
+Received: "1.00"
+
+ ❯ vbig/fail.test.ts:4:49
+      2| describe('pricing', () => {
+      3|   it('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({…
+      4|   it('rounds', () => { expect(1.005.toFixed(2)).toBe('1.01') })
+       |                                                 ^
+      5|   it.skip('later', () => {})
+      6|   it('logs', () => { console.log('debug value', 42); expect(true).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  vbig/fail.test.ts > pricing > throws
+TypeError: Cannot read properties of undefined (reading 'id')
+ ❯ vbig/fail.test.ts:7:30
+      5|   it.skip('later', () => {})
+      6|   it('logs', () => { console.log('debug value', 42); expect(true).toBe…
+      7|   it('throws', () => { throw new TypeError("Cannot read properties of …
+       |                              ^
+      8| })
+      9| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 40 passed (41)
+      Tests  3 failed | 401 passed | 1 skipped (405)
+   Start at  10:25:15
+   Duration  2.70s (transform 345ms, setup 0ms, collect 672ms, tests 135ms, environment 5ms, prepare 2.34s)
+

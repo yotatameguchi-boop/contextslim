@@ -1,0 +1,8 @@
+[contextslim] pytest output compressed. Removed: 2 all-pass progress lines. Failures, errors, diagnostics and the tool's own summary are verbatim below.
+[contextslim] Full original (9 lines): contextslim show cs_00000000000000000000   (range: --from N --to M)
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/dev/project/py
+collected 30 items
+
+============================== 30 passed in 0.02s ==============================

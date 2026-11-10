@@ -1,0 +1,5 @@
+dist/
+/contextslim
+/contextslim.exe
+testdata/fuzz/
+*.test

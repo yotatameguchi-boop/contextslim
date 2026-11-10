@@ -1,0 +1,209 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0 -- /home/dev/project/py/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/dev/project/py
+collecting ... collected 156 items
+
+tests/test_fail.py::test_total FAILED                                    [  0%]
+tests/test_fail.py::test_prints FAILED                                   [  1%]
+tests/test_fail.py::test_skip SKIPPED (later)                            [  1%]
+tests/test_fail.py::test_xfail XFAIL                                     [  2%]
+tests/test_fail.py::test_warn PASSED                                     [  3%]
+tests/test_fail.py::test_error FAILED                                    [  3%]
+tests/test_mod1.py::test_mod1_case1 PASSED                               [  4%]
+tests/test_mod1.py::test_mod1_case2 PASSED                               [  5%]
+tests/test_mod1.py::test_mod1_case3 PASSED                               [  5%]
+tests/test_mod1.py::test_mod1_case4 PASSED                               [  6%]
+tests/test_mod1.py::test_mod1_case5 PASSED                               [  7%]
+tests/test_mod1.py::test_mod1_case6 PASSED                               [  7%]
+tests/test_mod1.py::test_mod1_case7 PASSED                               [  8%]
+tests/test_mod1.py::test_mod1_case8 PASSED                               [  8%]
+tests/test_mod1.py::test_mod1_case9 PASSED                               [  9%]
+tests/test_mod1.py::test_mod1_case10 PASSED                              [ 10%]
+tests/test_mod1.py::test_mod1_case11 PASSED                              [ 10%]
+tests/test_mod1.py::test_mod1_case12 PASSED                              [ 11%]
+tests/test_mod1.py::test_mod1_case13 PASSED                              [ 12%]
+tests/test_mod1.py::test_mod1_case14 PASSED                              [ 12%]
+tests/test_mod1.py::test_mod1_case15 PASSED                              [ 13%]
+tests/test_mod10.py::test_mod10_case1 PASSED                             [ 14%]
+tests/test_mod10.py::test_mod10_case2 PASSED                             [ 14%]
+tests/test_mod10.py::test_mod10_case3 PASSED                             [ 15%]
+tests/test_mod10.py::test_mod10_case4 PASSED                             [ 16%]
+tests/test_mod10.py::test_mod10_case5 PASSED                             [ 16%]
+tests/test_mod10.py::test_mod10_case6 PASSED                             [ 17%]
+tests/test_mod10.py::test_mod10_case7 PASSED                             [ 17%]
+tests/test_mod10.py::test_mod10_case8 PASSED                             [ 18%]
+tests/test_mod10.py::test_mod10_case9 PASSED                             [ 19%]
+tests/test_mod10.py::test_mod10_case10 PASSED                            [ 19%]
+tests/test_mod10.py::test_mod10_case11 PASSED                            [ 20%]
+tests/test_mod10.py::test_mod10_case12 PASSED                            [ 21%]
+tests/test_mod10.py::test_mod10_case13 PASSED                            [ 21%]
+tests/test_mod10.py::test_mod10_case14 PASSED                            [ 22%]
+tests/test_mod10.py::test_mod10_case15 PASSED                            [ 23%]
+tests/test_mod2.py::test_mod2_case1 PASSED                               [ 23%]
+tests/test_mod2.py::test_mod2_case2 PASSED                               [ 24%]
+tests/test_mod2.py::test_mod2_case3 PASSED                               [ 25%]
+tests/test_mod2.py::test_mod2_case4 PASSED                               [ 25%]
+tests/test_mod2.py::test_mod2_case5 PASSED                               [ 26%]
+tests/test_mod2.py::test_mod2_case6 PASSED                               [ 26%]
+tests/test_mod2.py::test_mod2_case7 PASSED                               [ 27%]
+tests/test_mod2.py::test_mod2_case8 PASSED                               [ 28%]
+tests/test_mod2.py::test_mod2_case9 PASSED                               [ 28%]
+tests/test_mod2.py::test_mod2_case10 PASSED                              [ 29%]
+tests/test_mod2.py::test_mod2_case11 PASSED                              [ 30%]
+tests/test_mod2.py::test_mod2_case12 PASSED                              [ 30%]
+tests/test_mod2.py::test_mod2_case13 PASSED                              [ 31%]
+tests/test_mod2.py::test_mod2_case14 PASSED                              [ 32%]
+tests/test_mod2.py::test_mod2_case15 PASSED                              [ 32%]
+tests/test_mod3.py::test_mod3_case1 PASSED                               [ 33%]
+tests/test_mod3.py::test_mod3_case2 PASSED                               [ 33%]
+tests/test_mod3.py::test_mod3_case3 PASSED                               [ 34%]
+tests/test_mod3.py::test_mod3_case4 PASSED                               [ 35%]
+tests/test_mod3.py::test_mod3_case5 PASSED                               [ 35%]
+tests/test_mod3.py::test_mod3_case6 PASSED                               [ 36%]
+tests/test_mod3.py::test_mod3_case7 PASSED                               [ 37%]
+tests/test_mod3.py::test_mod3_case8 PASSED                               [ 37%]
+tests/test_mod3.py::test_mod3_case9 PASSED                               [ 38%]
+tests/test_mod3.py::test_mod3_case10 PASSED                              [ 39%]
+tests/test_mod3.py::test_mod3_case11 PASSED                              [ 39%]
+tests/test_mod3.py::test_mod3_case12 PASSED                              [ 40%]
+tests/test_mod3.py::test_mod3_case13 PASSED                              [ 41%]
+tests/test_mod3.py::test_mod3_case14 PASSED                              [ 41%]
+tests/test_mod3.py::test_mod3_case15 PASSED                              [ 42%]
+tests/test_mod4.py::test_mod4_case1 PASSED                               [ 42%]
+tests/test_mod4.py::test_mod4_case2 PASSED                               [ 43%]
+tests/test_mod4.py::test_mod4_case3 PASSED                               [ 44%]
+tests/test_mod4.py::test_mod4_case4 PASSED                               [ 44%]
+tests/test_mod4.py::test_mod4_case5 PASSED                               [ 45%]
+tests/test_mod4.py::test_mod4_case6 PASSED                               [ 46%]
+tests/test_mod4.py::test_mod4_case7 PASSED                               [ 46%]
+tests/test_mod4.py::test_mod4_case8 PASSED                               [ 47%]
+tests/test_mod4.py::test_mod4_case9 PASSED                               [ 48%]
+tests/test_mod4.py::test_mod4_case10 PASSED                              [ 48%]
+tests/test_mod4.py::test_mod4_case11 PASSED                              [ 49%]
+tests/test_mod4.py::test_mod4_case12 PASSED                              [ 50%]
+tests/test_mod4.py::test_mod4_case13 PASSED                              [ 50%]
+tests/test_mod4.py::test_mod4_case14 PASSED                              [ 51%]
+tests/test_mod4.py::test_mod4_case15 PASSED                              [ 51%]
+tests/test_mod5.py::test_mod5_case1 PASSED                               [ 52%]
+tests/test_mod5.py::test_mod5_case2 PASSED                               [ 53%]
+tests/test_mod5.py::test_mod5_case3 PASSED                               [ 53%]
+tests/test_mod5.py::test_mod5_case4 PASSED                               [ 54%]
+tests/test_mod5.py::test_mod5_case5 PASSED                               [ 55%]
+tests/test_mod5.py::test_mod5_case6 PASSED                               [ 55%]
+tests/test_mod5.py::test_mod5_case7 PASSED                               [ 56%]
+tests/test_mod5.py::test_mod5_case8 PASSED                               [ 57%]
+tests/test_mod5.py::test_mod5_case9 PASSED                               [ 57%]
+tests/test_mod5.py::test_mod5_case10 PASSED                              [ 58%]
+tests/test_mod5.py::test_mod5_case11 PASSED                              [ 58%]
+tests/test_mod5.py::test_mod5_case12 PASSED                              [ 59%]
+tests/test_mod5.py::test_mod5_case13 PASSED                              [ 60%]
+tests/test_mod5.py::test_mod5_case14 PASSED                              [ 60%]
+tests/test_mod5.py::test_mod5_case15 PASSED                              [ 61%]
+tests/test_mod6.py::test_mod6_case1 PASSED                               [ 62%]
+tests/test_mod6.py::test_mod6_case2 PASSED                               [ 62%]
+tests/test_mod6.py::test_mod6_case3 PASSED                               [ 63%]
+tests/test_mod6.py::test_mod6_case4 PASSED                               [ 64%]
+tests/test_mod6.py::test_mod6_case5 PASSED                               [ 64%]
+tests/test_mod6.py::test_mod6_case6 PASSED                               [ 65%]
+tests/test_mod6.py::test_mod6_case7 PASSED                               [ 66%]
+tests/test_mod6.py::test_mod6_case8 PASSED                               [ 66%]
+tests/test_mod6.py::test_mod6_case9 PASSED                               [ 67%]
+tests/test_mod6.py::test_mod6_case10 PASSED                              [ 67%]
+tests/test_mod6.py::test_mod6_case11 PASSED                              [ 68%]
+tests/test_mod6.py::test_mod6_case12 PASSED                              [ 69%]
+tests/test_mod6.py::test_mod6_case13 PASSED                              [ 69%]
+tests/test_mod6.py::test_mod6_case14 PASSED                              [ 70%]
+tests/test_mod6.py::test_mod6_case15 PASSED                              [ 71%]
+tests/test_mod7.py::test_mod7_case1 PASSED                               [ 71%]
+tests/test_mod7.py::test_mod7_case2 PASSED                               [ 72%]
+tests/test_mod7.py::test_mod7_case3 PASSED                               [ 73%]
+tests/test_mod7.py::test_mod7_case4 PASSED                               [ 73%]
+tests/test_mod7.py::test_mod7_case5 PASSED                               [ 74%]
+tests/test_mod7.py::test_mod7_case6 PASSED                               [ 75%]
+tests/test_mod7.py::test_mod7_case7 PASSED                               [ 75%]
+tests/test_mod7.py::test_mod7_case8 PASSED                               [ 76%]
+tests/test_mod7.py::test_mod7_case9 PASSED                               [ 76%]
+tests/test_mod7.py::test_mod7_case10 PASSED                              [ 77%]
+tests/test_mod7.py::test_mod7_case11 PASSED                              [ 78%]
+tests/test_mod7.py::test_mod7_case12 PASSED                              [ 78%]
+tests/test_mod7.py::test_mod7_case13 PASSED                              [ 79%]
+tests/test_mod7.py::test_mod7_case14 PASSED                              [ 80%]
+tests/test_mod7.py::test_mod7_case15 PASSED                              [ 80%]
+tests/test_mod8.py::test_mod8_case1 PASSED                               [ 81%]
+tests/test_mod8.py::test_mod8_case2 PASSED                               [ 82%]
+tests/test_mod8.py::test_mod8_case3 PASSED                               [ 82%]
+tests/test_mod8.py::test_mod8_case4 PASSED                               [ 83%]
+tests/test_mod8.py::test_mod8_case5 PASSED                               [ 83%]
+tests/test_mod8.py::test_mod8_case6 PASSED                               [ 84%]
+tests/test_mod8.py::test_mod8_case7 PASSED                               [ 85%]
+tests/test_mod8.py::test_mod8_case8 PASSED                               [ 85%]
+tests/test_mod8.py::test_mod8_case9 PASSED                               [ 86%]
+tests/test_mod8.py::test_mod8_case10 PASSED                              [ 87%]
+tests/test_mod8.py::test_mod8_case11 PASSED                              [ 87%]
+tests/test_mod8.py::test_mod8_case12 PASSED                              [ 88%]
+tests/test_mod8.py::test_mod8_case13 PASSED                              [ 89%]
+tests/test_mod8.py::test_mod8_case14 PASSED                              [ 89%]
+tests/test_mod8.py::test_mod8_case15 PASSED                              [ 90%]
+tests/test_mod9.py::test_mod9_case1 PASSED                               [ 91%]
+tests/test_mod9.py::test_mod9_case2 PASSED                               [ 91%]
+tests/test_mod9.py::test_mod9_case3 PASSED                               [ 92%]
+tests/test_mod9.py::test_mod9_case4 PASSED                               [ 92%]
+tests/test_mod9.py::test_mod9_case5 PASSED                               [ 93%]
+tests/test_mod9.py::test_mod9_case6 PASSED                               [ 94%]
+tests/test_mod9.py::test_mod9_case7 PASSED                               [ 94%]
+tests/test_mod9.py::test_mod9_case8 PASSED                               [ 95%]
+tests/test_mod9.py::test_mod9_case9 PASSED                               [ 96%]
+tests/test_mod9.py::test_mod9_case10 PASSED                              [ 96%]
+tests/test_mod9.py::test_mod9_case11 PASSED                              [ 97%]
+tests/test_mod9.py::test_mod9_case12 PASSED                              [ 98%]
+tests/test_mod9.py::test_mod9_case13 PASSED                              [ 98%]
+tests/test_mod9.py::test_mod9_case14 PASSED                              [ 99%]
+tests/test_mod9.py::test_mod9_case15 PASSED                              [100%]
+
+=================================== FAILURES ===================================
+__________________________________ test_total __________________________________
+
+    def test_total():
+>       assert compute(10) == {"total": 11, "tax": 1}
+E       AssertionError: assert {'total': 10, 'tax': 1} == {'total': 11, 'tax': 1}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'total': 10} != {'total': 11}
+E         
+E         Full diff: (-: missing in left side, +: extra in left side)
+E           {...
+E         
+E         ...Full output truncated, use '-vv' to show
+
+tests/test_fail.py:7: AssertionError
+_________________________________ test_prints __________________________________
+
+    def test_prints():
+        print("debug value", 42)
+>       assert 1 == 2, "values differ"
+E       AssertionError: values differ
+E       assert 1 == 2
+
+tests/test_fail.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+debug value 42
+__________________________________ test_error __________________________________
+
+    def test_error():
+>       raise KeyError("missing-key")
+E       KeyError: 'missing-key'
+
+tests/test_fail.py:25: KeyError
+=============================== warnings summary ===============================
+tests/test_fail.py::test_warn
+  /home/dev/project/py/tests/test_fail.py:22: DeprecationWarning: deprecated api
+    warnings.warn("deprecated api", DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_fail.py::test_total - AssertionError: assert {'total': 10, ...
+FAILED tests/test_fail.py::test_prints - AssertionError: values differ
+FAILED tests/test_fail.py::test_error - KeyError: 'missing-key'
+======== 3 failed, 151 passed, 1 skipped, 1 xfailed, 1 warning in 0.07s ========

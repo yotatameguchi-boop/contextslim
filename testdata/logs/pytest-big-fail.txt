@@ -1,0 +1,89 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/dev/project/py
+collected 1006 items
+
+big/test_big1.py .........................                               [  2%]
+big/test_big10.py .........................                              [  4%]
+big/test_big11.py .........................                              [  7%]
+big/test_big12.py .........................                              [  9%]
+big/test_big13.py .........................                              [ 12%]
+big/test_big14.py .........................                              [ 14%]
+big/test_big15.py .........................                              [ 17%]
+big/test_big16.py .........................                              [ 19%]
+big/test_big17.py .........................                              [ 22%]
+big/test_big18.py .........................                              [ 24%]
+big/test_big19.py .........................                              [ 27%]
+big/test_big2.py .........................                               [ 29%]
+big/test_big20.py .........................                              [ 32%]
+big/test_big21.py .........................                              [ 34%]
+big/test_big22.py .........................                              [ 37%]
+big/test_big23.py .........................                              [ 39%]
+big/test_big24.py .........................                              [ 42%]
+big/test_big25.py .........................                              [ 44%]
+big/test_big26.py .........................                              [ 47%]
+big/test_big27.py .........................                              [ 49%]
+big/test_big28.py .........................                              [ 52%]
+big/test_big29.py .........................                              [ 54%]
+big/test_big3.py .........................                               [ 57%]
+big/test_big30.py .........................                              [ 59%]
+big/test_big31.py .........................                              [ 62%]
+big/test_big32.py .........................                              [ 64%]
+big/test_big33.py .........................                              [ 67%]
+big/test_big34.py .........................                              [ 69%]
+big/test_big35.py .........................                              [ 72%]
+big/test_big36.py .........................                              [ 74%]
+big/test_big37.py .........................                              [ 77%]
+big/test_big38.py .........................                              [ 79%]
+big/test_big39.py .........................                              [ 82%]
+big/test_big4.py .........................                               [ 84%]
+big/test_big40.py .........................                              [ 86%]
+big/test_big5.py .........................                               [ 89%]
+big/test_big6.py .........................                               [ 91%]
+big/test_big7.py .........................                               [ 94%]
+big/test_big8.py .........................                               [ 96%]
+big/test_big9.py .........................                               [ 99%]
+big/test_zfail.py FFsx.F                                                 [100%]
+
+=================================== FAILURES ===================================
+__________________________________ test_total __________________________________
+
+    def test_total():
+>       assert compute(10) == {"total": 11, "tax": 1}
+E       AssertionError: assert {'total': 10, 'tax': 1} == {'total': 11, 'tax': 1}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'total': 10} != {'total': 11}
+E         Use -v to get more diff
+
+big/test_zfail.py:7: AssertionError
+_________________________________ test_prints __________________________________
+
+    def test_prints():
+        print("debug value", 42)
+>       assert 1 == 2, "values differ"
+E       AssertionError: values differ
+E       assert 1 == 2
+
+big/test_zfail.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+debug value 42
+__________________________________ test_error __________________________________
+
+    def test_error():
+>       raise KeyError("missing-key")
+E       KeyError: 'missing-key'
+
+big/test_zfail.py:25: KeyError
+=============================== warnings summary ===============================
+big/test_zfail.py::test_warn
+  /home/dev/project/py/big/test_zfail.py:22: DeprecationWarning: deprecated api
+    warnings.warn("deprecated api", DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED big/test_zfail.py::test_total - AssertionError: assert {'total': 10, '...
+FAILED big/test_zfail.py::test_prints - AssertionError: values differ
+FAILED big/test_zfail.py::test_error - KeyError: 'missing-key'
+======= 3 failed, 1001 passed, 1 skipped, 1 xfailed, 1 warning in 0.60s ========

@@ -1,0 +1,9 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/dev/project/py
+collected 30 items
+
+tests/test_mod1.py ...............                                       [ 50%]
+tests/test_mod2.py ...............                                       [100%]
+
+============================== 30 passed in 0.02s ==============================

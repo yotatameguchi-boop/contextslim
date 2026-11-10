@@ -1,0 +1,188 @@
+  console.log
+    debug value 42
+
+      at Object.log (fail.test.js:5:32)
+
+FAIL jt/fail.test.js
+  pricing
+    ✕ computes total (4 ms)
+    ✕ rounds (1 ms)
+    ✓ logs (10 ms)
+    ○ skipped later
+
+  ● pricing › computes total
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "tax": 1,
+    -   "total": 11,
+    +   "total": 10,
+      }
+
+      1 | describe('pricing', () => {
+    > 2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+        |                                                                ^
+      3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+
+      at Object.toEqual (fail.test.js:2:64)
+
+  ● pricing › rounds
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1.01"
+    Received: "1.00"
+
+      1 | describe('pricing', () => {
+      2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+    > 3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+        |                                                     ^
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+      6 | })
+
+      at Object.toBe (fail.test.js:3:53)
+
+PASS jt/mod12.test.js
+  module 12
+    ✓ case 1 works (1 ms)
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works (1 ms)
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works (1 ms)
+    ✓ case 8 works
+
+PASS jt/mod11.test.js
+  module 11
+    ✓ case 1 works (1 ms)
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works (1 ms)
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works
+
+PASS jt/mod10.test.js
+  module 10
+    ✓ case 1 works
+    ✓ case 2 works (1 ms)
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works (1 ms)
+    ✓ case 8 works
+
+PASS jt/mod9.test.js
+  module 9
+    ✓ case 1 works
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works
+
+PASS jt/mod8.test.js
+  module 8
+    ✓ case 1 works
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works (1 ms)
+
+PASS jt/mod7.test.js
+  module 7
+    ✓ case 1 works
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works
+
+PASS jt/mod6.test.js
+  module 6
+    ✓ case 1 works
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works (1 ms)
+
+PASS jt/mod2.test.js
+  module 2
+    ✓ case 1 works (1 ms)
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works (1 ms)
+    ✓ case 7 works
+    ✓ case 8 works
+
+PASS jt/mod4.test.js
+  module 4
+    ✓ case 1 works
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works
+
+PASS jt/mod3.test.js
+  module 3
+    ✓ case 1 works (1 ms)
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works (1 ms)
+    ✓ case 8 works
+
+PASS jt/mod5.test.js
+  module 5
+    ✓ case 1 works
+    ✓ case 2 works (1 ms)
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works
+
+PASS jt/mod1.test.js
+  module 1
+    ✓ case 1 works
+    ✓ case 2 works
+    ✓ case 3 works
+    ✓ case 4 works
+    ✓ case 5 works (1 ms)
+    ✓ case 6 works
+    ✓ case 7 works
+    ✓ case 8 works
+
+Test Suites: 1 failed, 12 passed, 13 total
+Tests:       2 failed, 1 skipped, 97 passed, 100 total
+Snapshots:   0 total
+Time:        0.391 s, estimated 1 s
+Ran all test suites.

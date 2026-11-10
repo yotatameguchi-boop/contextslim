@@ -1,0 +1,51 @@
+[contextslim] pytest output compressed. Removed: 40 all-pass progress lines. Failures, errors, diagnostics and the tool's own summary are verbatim below.
+[contextslim] Full original (89 lines): contextslim show cs_00000000000000000000   (range: --from N --to M)
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/dev/project/py
+collected 1006 items
+
+big/test_zfail.py FFsx.F                                                 [100%]
+
+=================================== FAILURES ===================================
+__________________________________ test_total __________________________________
+
+    def test_total():
+>       assert compute(10) == {"total": 11, "tax": 1}
+E       AssertionError: assert {'total': 10, 'tax': 1} == {'total': 11, 'tax': 1}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'total': 10} != {'total': 11}
+E         Use -v to get more diff
+
+big/test_zfail.py:7: AssertionError
+_________________________________ test_prints __________________________________
+
+    def test_prints():
+        print("debug value", 42)
+>       assert 1 == 2, "values differ"
+E       AssertionError: values differ
+E       assert 1 == 2
+
+big/test_zfail.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+debug value 42
+__________________________________ test_error __________________________________
+
+    def test_error():
+>       raise KeyError("missing-key")
+E       KeyError: 'missing-key'
+
+big/test_zfail.py:25: KeyError
+=============================== warnings summary ===============================
+big/test_zfail.py::test_warn
+  /home/dev/project/py/big/test_zfail.py:22: DeprecationWarning: deprecated api
+    warnings.warn("deprecated api", DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED big/test_zfail.py::test_total - AssertionError: assert {'total': 10, '...
+FAILED big/test_zfail.py::test_prints - AssertionError: values differ
+FAILED big/test_zfail.py::test_error - KeyError: 'missing-key'
+======= 3 failed, 1001 passed, 1 skipped, 1 xfailed, 1 warning in 0.60s ========

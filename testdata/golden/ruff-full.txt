@@ -1,0 +1,117 @@
+[contextslim] ruff output compressed. Removed: nothing. Failures, errors, diagnostics and the tool's own summary are verbatim below.
+[contextslim] Full original (115 lines): contextslim show cs_00000000000000000000   (range: --from N --to M)
+I001 [*] Import block is un-sorted or un-formatted
+ --> pkg/a.py:1:1
+  |
+1 | / import os
+2 | | import sys
+3 | | import json
+  | |___________^
+4 |   def f(x):
+5 |       if x == None:
+  |
+help: Organize imports
+  |
+1 + import json
+2 | import os
+3 | import sys
+  - import json
+4 +
+5 +
+6 | def f(x):
+  |
+
+F401 [*] `os` imported but unused
+ --> pkg/a.py:1:8
+  |
+1 | import os
+  |        ^^
+2 | import sys
+3 | import json
+  |
+help: Remove unused import: `os`
+  |
+  - import os
+1 | import sys
+  |
+
+F401 [*] `sys` imported but unused
+ --> pkg/a.py:2:8
+  |
+1 | import os
+2 | import sys
+  |        ^^^
+3 | import json
+4 | def f(x):
+  |
+help: Remove unused import: `sys`
+  |
+1 | import os
+  - import sys
+2 | import json
+  |
+
+F401 [*] `json` imported but unused
+ --> pkg/a.py:3:8
+  |
+1 | import os
+2 | import sys
+3 | import json
+  |        ^^^^
+4 | def f(x):
+5 |     if x == None:
+  |
+help: Remove unused import: `json`
+  |
+2 | import sys
+  - import json
+3 | def f(x):
+  |
+
+F841 Local variable `l` is assigned to but never used
+ --> pkg/a.py:7:5
+  |
+5 |     if x == None:
+6 |         return 1
+7 |     l = 1
+  |     ^
+8 |     return undefined_name
+9 | def g(a, b):
+  |
+help: Remove assignment to unused variable `l`
+  |
+6 |         return 1
+  -     l = 1
+7 |     return undefined_name
+  |
+note: This is an unsafe fix and may change runtime behavior
+
+F821 Undefined name `undefined_name`
+  --> pkg/a.py:8:12
+   |
+ 6 |         return 1
+ 7 |     l = 1
+ 8 |     return undefined_name
+   |            ^^^^^^^^^^^^^^
+ 9 | def g(a, b):
+10 |     import re
+   |
+
+F401 [*] `re` imported but unused
+  --> pkg/a.py:10:12
+   |
+ 8 |     return undefined_name
+ 9 | def g(a, b):
+10 |     import re
+   |            ^^
+11 |     return a
+   |
+help: Remove unused import: `re`
+   |
+9  | def g(a, b):
+   -     import re
+10 |     return a
+   |
+
+Found 7 errors.
+[*] 5 fixable with `--fix` (1 unsafe fix available with `--fix --unsafe-fixes`).

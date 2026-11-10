@@ -1,0 +1,32 @@
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_mod1.py:1:1
+  |
+1 | import pytest
+  | ^^^^^^^^^^^^^
+2 | def test_mod1_case1():
+3 |     assert 1 + 1 == 2
+  |
+help: Organize imports
+  |
+1 | import pytest
+2 +
+3 +
+4 | def test_mod1_case1():
+  |
+
+F401 [*] `pytest` imported but unused
+ --> tests/test_mod1.py:1:8
+  |
+1 | import pytest
+  |        ^^^^^^
+2 | def test_mod1_case1():
+3 |     assert 1 + 1 == 2
+  |
+help: Remove unused import: `pytest`
+  |
+  - import pytest
+1 | def test_mod1_case1():
+  |
+
+Found 2 errors.
+[*] 2 fixable with `--fix`.

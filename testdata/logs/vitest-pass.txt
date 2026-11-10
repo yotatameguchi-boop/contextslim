@@ -1,0 +1,14 @@
+
+ RUN  v3.2.7 /home/dev/project/js
+
+ ✓ vt/mod1.test.ts (8 tests) 3ms
+ ✓ vt/mod3.test.ts (8 tests) 2ms
+ ✓ vt/mod2.test.ts (8 tests) 2ms
+ ✓ vt/mod4.test.ts (8 tests) 2ms
+ ✓ vt/mod5.test.ts (8 tests) 2ms
+
+ Test Files  5 passed (5)
+      Tests  40 passed (40)
+   Start at  10:12:04
+   Duration  378ms (transform 63ms, setup 0ms, collect 86ms, tests 12ms, environment 1ms, prepare 262ms)
+

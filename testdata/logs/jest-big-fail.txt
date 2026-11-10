@@ -1,0 +1,135 @@
+PASS jbig/f39.test.js
+PASS jbig/f40.test.js
+PASS jbig/f38.test.js
+FAIL jbig/fail.test.js
+  ● Console
+
+    console.log
+      debug value 42
+
+      at Object.log (fail.test.js:5:32)
+
+  ● pricing › computes total
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "tax": 1,
+    -   "total": 11,
+    +   "total": 10,
+      }
+
+      1 | describe('pricing', () => {
+    > 2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+        |                                                                ^
+      3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+
+      at Object.toEqual (fail.test.js:2:64)
+
+  ● pricing › rounds
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1.01"
+    Received: "1.00"
+
+      1 | describe('pricing', () => {
+      2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+    > 3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+        |                                                     ^
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+      6 | })
+
+      at Object.toBe (fail.test.js:3:53)
+
+PASS jbig/f27.test.js
+PASS jbig/f25.test.js
+PASS jbig/f36.test.js
+PASS jbig/f10.test.js
+PASS jbig/f12.test.js
+PASS jbig/f21.test.js
+PASS jbig/f35.test.js
+PASS jbig/f8.test.js
+PASS jbig/f26.test.js
+PASS jbig/f24.test.js
+PASS jbig/f22.test.js
+PASS jbig/f3.test.js
+PASS jbig/f9.test.js
+PASS jbig/f34.test.js
+PASS jbig/f32.test.js
+PASS jbig/f23.test.js
+PASS jbig/f1.test.js
+PASS jbig/f11.test.js
+PASS jbig/f28.test.js
+PASS jbig/f20.test.js
+PASS jbig/f30.test.js
+PASS jbig/f2.test.js
+PASS jbig/f7.test.js
+PASS jbig/f29.test.js
+PASS jbig/f37.test.js
+PASS jbig/f19.test.js
+PASS jbig/f15.test.js
+PASS jbig/f18.test.js
+PASS jbig/f33.test.js
+PASS jbig/f13.test.js
+PASS jbig/f16.test.js
+PASS jbig/f31.test.js
+PASS jbig/f14.test.js
+PASS jbig/f6.test.js
+PASS jbig/f5.test.js
+PASS jbig/f17.test.js
+PASS jbig/f4.test.js
+
+Summary of all failing tests
+FAIL ./fail.test.js
+  ● pricing › computes total
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "tax": 1,
+    -   "total": 11,
+    +   "total": 10,
+      }
+
+      1 | describe('pricing', () => {
+    > 2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+        |                                                                ^
+      3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+
+      at Object.toEqual (fail.test.js:2:64)
+
+  ● pricing › rounds
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1.01"
+    Received: "1.00"
+
+      1 | describe('pricing', () => {
+      2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+    > 3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+        |                                                     ^
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+      6 | })
+
+      at Object.toBe (fail.test.js:3:53)
+
+
+Test Suites: 1 failed, 40 passed, 41 total
+Tests:       2 failed, 1 skipped, 401 passed, 404 total
+Snapshots:   0 total
+Time:        0.704 s, estimated 1 s
+Ran all test suites.

@@ -1,0 +1,169 @@
+
+ RUN  v3.2.7 /home/dev/project/js
+
+ ✓ vt/mod8.test.ts > module 8 > case 1 works 1ms
+ ✓ vt/mod8.test.ts > module 8 > case 2 works 0ms
+ ✓ vt/mod8.test.ts > module 8 > case 3 works 0ms
+ ✓ vt/mod8.test.ts > module 8 > case 4 works 0ms
+ ✓ vt/mod8.test.ts > module 8 > case 5 works 0ms
+ ✓ vt/mod8.test.ts > module 8 > case 6 works 0ms
+ ✓ vt/mod8.test.ts > module 8 > case 7 works 0ms
+ ✓ vt/mod8.test.ts > module 8 > case 8 works 0ms
+ ✓ vt/mod6.test.ts > module 6 > case 1 works 1ms
+ ✓ vt/mod6.test.ts > module 6 > case 2 works 0ms
+ ✓ vt/mod6.test.ts > module 6 > case 3 works 0ms
+ ✓ vt/mod6.test.ts > module 6 > case 4 works 0ms
+ ✓ vt/mod6.test.ts > module 6 > case 5 works 0ms
+ ✓ vt/mod6.test.ts > module 6 > case 6 works 0ms
+ ✓ vt/mod6.test.ts > module 6 > case 7 works 0ms
+ ✓ vt/mod6.test.ts > module 6 > case 8 works 0ms
+stdout | vt/fail.test.ts > pricing > logs
+debug value [33m42[39m
+
+ × vt/fail.test.ts > pricing > computes total 11ms
+   → expected { total: 10, tax: 1 } to deeply equal { total: 11, tax: 1 }
+ × vt/fail.test.ts > pricing > rounds 2ms
+   → expected '1.00' to be '1.01' // Object.is equality
+ ↓ vt/fail.test.ts > pricing > later
+ ✓ vt/fail.test.ts > pricing > logs 1ms
+ × vt/fail.test.ts > pricing > throws 0ms
+   → Cannot read properties of undefined (reading 'id')
+ ✓ vt/mod1.test.ts > module 1 > case 1 works 1ms
+ ✓ vt/mod1.test.ts > module 1 > case 2 works 0ms
+ ✓ vt/mod1.test.ts > module 1 > case 3 works 0ms
+ ✓ vt/mod1.test.ts > module 1 > case 4 works 0ms
+ ✓ vt/mod1.test.ts > module 1 > case 5 works 0ms
+ ✓ vt/mod1.test.ts > module 1 > case 6 works 0ms
+ ✓ vt/mod1.test.ts > module 1 > case 7 works 0ms
+ ✓ vt/mod1.test.ts > module 1 > case 8 works 0ms
+ ✓ vt/mod10.test.ts > module 10 > case 1 works 1ms
+ ✓ vt/mod10.test.ts > module 10 > case 2 works 0ms
+ ✓ vt/mod10.test.ts > module 10 > case 3 works 0ms
+ ✓ vt/mod10.test.ts > module 10 > case 4 works 0ms
+ ✓ vt/mod10.test.ts > module 10 > case 5 works 0ms
+ ✓ vt/mod10.test.ts > module 10 > case 6 works 0ms
+ ✓ vt/mod10.test.ts > module 10 > case 7 works 0ms
+ ✓ vt/mod10.test.ts > module 10 > case 8 works 0ms
+ ✓ vt/mod9.test.ts > module 9 > case 1 works 1ms
+ ✓ vt/mod9.test.ts > module 9 > case 2 works 0ms
+ ✓ vt/mod9.test.ts > module 9 > case 3 works 0ms
+ ✓ vt/mod9.test.ts > module 9 > case 4 works 0ms
+ ✓ vt/mod9.test.ts > module 9 > case 5 works 0ms
+ ✓ vt/mod9.test.ts > module 9 > case 6 works 0ms
+ ✓ vt/mod9.test.ts > module 9 > case 7 works 0ms
+ ✓ vt/mod9.test.ts > module 9 > case 8 works 0ms
+ ✓ vt/mod7.test.ts > module 7 > case 1 works 3ms
+ ✓ vt/mod7.test.ts > module 7 > case 2 works 0ms
+ ✓ vt/mod7.test.ts > module 7 > case 3 works 0ms
+ ✓ vt/mod7.test.ts > module 7 > case 4 works 0ms
+ ✓ vt/mod7.test.ts > module 7 > case 5 works 0ms
+ ✓ vt/mod7.test.ts > module 7 > case 6 works 0ms
+ ✓ vt/mod7.test.ts > module 7 > case 7 works 0ms
+ ✓ vt/mod7.test.ts > module 7 > case 8 works 0ms
+ ✓ vt/mod3.test.ts > module 3 > case 1 works 1ms
+ ✓ vt/mod3.test.ts > module 3 > case 2 works 0ms
+ ✓ vt/mod3.test.ts > module 3 > case 3 works 0ms
+ ✓ vt/mod3.test.ts > module 3 > case 4 works 0ms
+ ✓ vt/mod3.test.ts > module 3 > case 5 works 0ms
+ ✓ vt/mod3.test.ts > module 3 > case 6 works 0ms
+ ✓ vt/mod3.test.ts > module 3 > case 7 works 0ms
+ ✓ vt/mod3.test.ts > module 3 > case 8 works 0ms
+ ✓ vt/mod12.test.ts > module 12 > case 1 works 1ms
+ ✓ vt/mod12.test.ts > module 12 > case 2 works 0ms
+ ✓ vt/mod12.test.ts > module 12 > case 3 works 0ms
+ ✓ vt/mod12.test.ts > module 12 > case 4 works 0ms
+ ✓ vt/mod12.test.ts > module 12 > case 5 works 0ms
+ ✓ vt/mod12.test.ts > module 12 > case 6 works 0ms
+ ✓ vt/mod12.test.ts > module 12 > case 7 works 0ms
+ ✓ vt/mod12.test.ts > module 12 > case 8 works 0ms
+ ✓ vt/mod11.test.ts > module 11 > case 1 works 1ms
+ ✓ vt/mod11.test.ts > module 11 > case 2 works 0ms
+ ✓ vt/mod11.test.ts > module 11 > case 3 works 0ms
+ ✓ vt/mod11.test.ts > module 11 > case 4 works 0ms
+ ✓ vt/mod11.test.ts > module 11 > case 5 works 0ms
+ ✓ vt/mod11.test.ts > module 11 > case 6 works 0ms
+ ✓ vt/mod11.test.ts > module 11 > case 7 works 0ms
+ ✓ vt/mod11.test.ts > module 11 > case 8 works 0ms
+ ✓ vt/mod2.test.ts > module 2 > case 1 works 1ms
+ ✓ vt/mod2.test.ts > module 2 > case 2 works 0ms
+ ✓ vt/mod2.test.ts > module 2 > case 3 works 0ms
+ ✓ vt/mod2.test.ts > module 2 > case 4 works 0ms
+ ✓ vt/mod2.test.ts > module 2 > case 5 works 0ms
+ ✓ vt/mod2.test.ts > module 2 > case 6 works 0ms
+ ✓ vt/mod2.test.ts > module 2 > case 7 works 0ms
+ ✓ vt/mod2.test.ts > module 2 > case 8 works 0ms
+ ✓ vt/mod4.test.ts > module 4 > case 1 works 1ms
+ ✓ vt/mod4.test.ts > module 4 > case 2 works 0ms
+ ✓ vt/mod4.test.ts > module 4 > case 3 works 0ms
+ ✓ vt/mod4.test.ts > module 4 > case 4 works 0ms
+ ✓ vt/mod4.test.ts > module 4 > case 5 works 0ms
+ ✓ vt/mod4.test.ts > module 4 > case 6 works 0ms
+ ✓ vt/mod4.test.ts > module 4 > case 7 works 0ms
+ ✓ vt/mod4.test.ts > module 4 > case 8 works 0ms
+ ✓ vt/mod5.test.ts > module 5 > case 1 works 1ms
+ ✓ vt/mod5.test.ts > module 5 > case 2 works 0ms
+ ✓ vt/mod5.test.ts > module 5 > case 3 works 0ms
+ ✓ vt/mod5.test.ts > module 5 > case 4 works 0ms
+ ✓ vt/mod5.test.ts > module 5 > case 5 works 0ms
+ ✓ vt/mod5.test.ts > module 5 > case 6 works 0ms
+ ✓ vt/mod5.test.ts > module 5 > case 7 works 0ms
+ ✓ vt/mod5.test.ts > module 5 > case 8 works 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  vt/fail.test.ts > pricing > computes total
+AssertionError: expected { total: 10, tax: 1 } to deeply equal { total: 11, tax: 1 }
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "tax": 1,[22m
+[32m-   "total": 11,[39m
+[31m+   "total": 10,[39m
+[2m  }[22m
+
+ ❯ vt/fail.test.ts:3:62
+      1| import { describe, it, expect } from 'vitest'
+      2| describe('pricing', () => {
+      3|   it('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({…
+       |                                                              ^
+      4|   it('rounds', () => { expect(1.005.toFixed(2)).toBe('1.01') })
+      5|   it.skip('later', () => {})
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  vt/fail.test.ts > pricing > rounds
+AssertionError: expected '1.00' to be '1.01' // Object.is equality
+
+Expected: [32m"1.0[7m1[27m"[39m
+Received: [31m"1.0[7m0[27m"[39m
+
+ ❯ vt/fail.test.ts:4:49
+      2| describe('pricing', () => {
+      3|   it('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({…
+      4|   it('rounds', () => { expect(1.005.toFixed(2)).toBe('1.01') })
+       |                                                 ^
+      5|   it.skip('later', () => {})
+      6|   it('logs', () => { console.log('debug value', 42); expect(true).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  vt/fail.test.ts > pricing > throws
+TypeError: Cannot read properties of undefined (reading 'id')
+ ❯ vt/fail.test.ts:7:30
+      5|   it.skip('later', () => {})
+      6|   it('logs', () => { console.log('debug value', 42); expect(true).toBe…
+      7|   it('throws', () => { throw new TypeError("Cannot read properties of …
+       |                              ^
+      8| })
+      9| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  3 failed | 97 passed | 1 skipped (101)
+   Start at  10:12:05
+   Duration  972ms (transform 145ms, setup 0ms, collect 237ms, tests 47ms, environment 2ms, prepare 715ms)
+

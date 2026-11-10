@@ -1,0 +1,618 @@
+PASS jbig/f38.test.js
+  feature 38
+    ✓ handles input 1 (3 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5 (1 ms)
+    ✓ handles input 6
+    ✓ handles input 7 (1 ms)
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10 (1 ms)
+
+PASS jbig/f39.test.js
+  feature 39
+    ✓ handles input 1 (8 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5 (1 ms)
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10 (1 ms)
+
+PASS jbig/f40.test.js
+  feature 40
+    ✓ handles input 1 (3 ms)
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5 (10 ms)
+    ✓ handles input 6 (1 ms)
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10 (1 ms)
+
+PASS jbig/f37.test.js
+  feature 37
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7 (1 ms)
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f35.test.js
+  feature 35
+    ✓ handles input 1
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f36.test.js
+  feature 36
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8 (1 ms)
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f34.test.js
+  feature 34
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f33.test.js
+  feature 33
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3 (1 ms)
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f32.test.js
+  feature 32
+    ✓ handles input 1
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10 (1 ms)
+
+PASS jbig/f31.test.js
+  feature 31
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f30.test.js
+  feature 30
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5 (1 ms)
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f29.test.js
+  feature 29
+    ✓ handles input 1
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6 (1 ms)
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f28.test.js
+  feature 28
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2 (2 ms)
+    ✓ handles input 3
+    ✓ handles input 4 (1 ms)
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f26.test.js
+  feature 26
+    ✓ handles input 1 (6 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7 (1 ms)
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f27.test.js
+  feature 27
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9 (1 ms)
+    ✓ handles input 10
+
+PASS jbig/f25.test.js
+  feature 25
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3 (1 ms)
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10 (1 ms)
+
+PASS jbig/f24.test.js
+  feature 24
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3 (1 ms)
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f23.test.js
+  feature 23
+    ✓ handles input 1 (2 ms)
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3 (4 ms)
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7 (1 ms)
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f22.test.js
+  feature 22
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5 (1 ms)
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f20.test.js
+  feature 20
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9 (1 ms)
+    ✓ handles input 10
+
+PASS jbig/f21.test.js
+  feature 21
+    ✓ handles input 1
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f19.test.js
+  feature 19
+    ✓ handles input 1
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10 (1 ms)
+
+PASS jbig/f17.test.js
+  feature 17
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f18.test.js
+  feature 18
+    ✓ handles input 1
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8 (1 ms)
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f16.test.js
+  feature 16
+    ✓ handles input 1
+    ✓ handles input 2 (2 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8 (1 ms)
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f14.test.js
+  feature 14
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3 (1 ms)
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f15.test.js
+  feature 15
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f13.test.js
+  feature 13
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9 (1 ms)
+    ✓ handles input 10
+
+PASS jbig/f11.test.js
+  feature 11
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4 (5 ms)
+    ✓ handles input 5 (1 ms)
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f12.test.js
+  feature 12
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3 (4 ms)
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8 (1 ms)
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f10.test.js
+  feature 10
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3 (6 ms)
+    ✓ handles input 4 (3 ms)
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f9.test.js
+  feature 9
+    ✓ handles input 1 (6 ms)
+    ✓ handles input 2
+    ✓ handles input 3 (1 ms)
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9 (1 ms)
+    ✓ handles input 10
+
+PASS jbig/f8.test.js
+  feature 8
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4 (1 ms)
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f7.test.js
+  feature 7
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4 (1 ms)
+    ✓ handles input 5
+    ✓ handles input 6 (1 ms)
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f5.test.js
+  feature 5
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f6.test.js
+  feature 6
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9 (1 ms)
+    ✓ handles input 10
+
+PASS jbig/f4.test.js
+  feature 4
+    ✓ handles input 1
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6 (1 ms)
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10 (1 ms)
+
+PASS jbig/f2.test.js
+  feature 2
+    ✓ handles input 1
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f3.test.js
+  feature 3
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8
+    ✓ handles input 9
+    ✓ handles input 10
+
+PASS jbig/f1.test.js
+  feature 1
+    ✓ handles input 1 (1 ms)
+    ✓ handles input 2 (1 ms)
+    ✓ handles input 3
+    ✓ handles input 4
+    ✓ handles input 5
+    ✓ handles input 6
+    ✓ handles input 7
+    ✓ handles input 8 (1 ms)
+    ✓ handles input 9
+    ✓ handles input 10
+
+  console.log
+    debug value 42
+
+      at Object.log (fail.test.js:5:32)
+
+FAIL jbig/fail.test.js
+  pricing
+    ✕ computes total (4 ms)
+    ✕ rounds (1 ms)
+    ✓ logs (19 ms)
+    ○ skipped later
+
+  ● pricing › computes total
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "tax": 1,
+    -   "total": 11,
+    +   "total": 10,
+      }
+
+      1 | describe('pricing', () => {
+    > 2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+        |                                                                ^
+      3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+
+      at Object.toEqual (fail.test.js:2:64)
+
+  ● pricing › rounds
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1.01"
+    Received: "1.00"
+
+      1 | describe('pricing', () => {
+      2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+    > 3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+        |                                                     ^
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+      6 | })
+
+      at Object.toBe (fail.test.js:3:53)
+
+Summary of all failing tests
+FAIL ./fail.test.js
+  ● pricing › computes total
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "tax": 1,
+    -   "total": 11,
+    +   "total": 10,
+      }
+
+      1 | describe('pricing', () => {
+    > 2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+        |                                                                ^
+      3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+
+      at Object.toEqual (fail.test.js:2:64)
+
+  ● pricing › rounds
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1.01"
+    Received: "1.00"
+
+      1 | describe('pricing', () => {
+      2 |   test('computes total', () => { expect({ total: 10, tax: 1 }).toEqual({ total: 11, tax: 1 }) })
+    > 3 |   test('rounds', () => { expect((1.005).toFixed(2)).toBe('1.01') })
+        |                                                     ^
+      4 |   test.skip('later', () => {})
+      5 |   test('logs', () => { console.log('debug value', 42); expect(true).toBe(true) })
+      6 | })
+
+      at Object.toBe (fail.test.js:3:53)
+
+
+Test Suites: 1 failed, 40 passed, 41 total
+Tests:       2 failed, 1 skipped, 401 passed, 404 total
+Snapshots:   0 total
+Time:        0.922 s
+Ran all test suites.

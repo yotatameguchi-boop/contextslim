@@ -1,0 +1,53 @@
+[96msrc/a.ts[0m:[93m1[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'number'.
+
+[7m1[0m const x: number = 'a'
+[7m [0m [91m      ~[0m
+
+[96msrc/a.ts[0m:[93m2[0m:[93m33[0m - [91merror[0m[90m TS2322: [0mType 'number' is not assignable to type 'string'.
+
+[7m2[0m function f(n: number): string { return n }
+[7m [0m [91m                                ~~~~~~[0m
+
+[96msrc/a.ts[0m:[93m3[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'number'.
+
+[7m3[0m const y: number = 'b'
+[7m [0m [91m      ~[0m
+
+[96msrc/a.ts[0m:[93m4[0m:[93m25[0m - [91merror[0m[90m TS2307: [0mCannot find module './nope' or its corresponding type declarations.
+
+[7m4[0m import { missing } from './nope'
+[7m [0m [91m                        ~~~~~~~~[0m
+
+[96msrc/a.ts[0m:[93m6[0m:[93m7[0m - [91merror[0m[90m TS2741: [0mProperty 'age' is missing in type '{ name: string; }' but required in type 'P'.
+
+[7m6[0m const p: P = { name: 'a' }
+[7m [0m [91m      ~[0m
+
+  [96msrc/a.ts[0m:[93m5[0m:[93m29[0m
+    [7m5[0m interface P { name: string; age: number }
+    [7m [0m [96m                            ~~~[0m
+    'age' is declared here.
+
+[96msrc/a.ts[0m:[93m7[0m:[93m16[0m - [91merror[0m[90m TS2322: [0mType 'number' is not assignable to type 'string'.
+
+[7m7[0m const q: P = { name: 1, age: 'x' }
+[7m [0m [91m               ~~~~[0m
+
+  [96msrc/a.ts[0m:[93m5[0m:[93m15[0m
+    [7m5[0m interface P { name: string; age: number }
+    [7m [0m [96m              ~~~~[0m
+    The expected type comes from property 'name' which is declared here on type 'P'
+
+[96msrc/a.ts[0m:[93m7[0m:[93m25[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'number'.
+
+[7m7[0m const q: P = { name: 1, age: 'x' }
+[7m [0m [91m                        ~~~[0m
+
+  [96msrc/a.ts[0m:[93m5[0m:[93m29[0m
+    [7m5[0m interface P { name: string; age: number }
+    [7m [0m [96m                            ~~~[0m
+    The expected type comes from property 'age' which is declared here on type 'P'
+
+
+Found 7 errors in the same file, starting at: src/a.ts[90m:1[0m
+

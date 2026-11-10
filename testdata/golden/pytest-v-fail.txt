@@ -1,0 +1,60 @@
+[contextslim] pytest output compressed. Removed: 151 passing-test lines. Failures, errors, diagnostics and the tool's own summary are verbatim below.
+[contextslim] Full original (209 lines): contextslim show cs_00000000000000000000   (range: --from N --to M)
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0 -- /home/dev/project/py/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/dev/project/py
+collecting ... collected 156 items
+
+tests/test_fail.py::test_total FAILED                                    [  0%]
+tests/test_fail.py::test_prints FAILED                                   [  1%]
+tests/test_fail.py::test_skip SKIPPED (later)                            [  1%]
+tests/test_fail.py::test_xfail XFAIL                                     [  2%]
+tests/test_fail.py::test_error FAILED                                    [  3%]
+
+=================================== FAILURES ===================================
+__________________________________ test_total __________________________________
+
+    def test_total():
+>       assert compute(10) == {"total": 11, "tax": 1}
+E       AssertionError: assert {'total': 10, 'tax': 1} == {'total': 11, 'tax': 1}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'total': 10} != {'total': 11}
+E         
+E         Full diff: (-: missing in left side, +: extra in left side)
+E           {...
+E         
+E         ...Full output truncated, use '-vv' to show
+
+tests/test_fail.py:7: AssertionError
+_________________________________ test_prints __________________________________
+
+    def test_prints():
+        print("debug value", 42)
+>       assert 1 == 2, "values differ"
+E       AssertionError: values differ
+E       assert 1 == 2
+
+tests/test_fail.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+debug value 42
+__________________________________ test_error __________________________________
+
+    def test_error():
+>       raise KeyError("missing-key")
+E       KeyError: 'missing-key'
+
+tests/test_fail.py:25: KeyError
+=============================== warnings summary ===============================
+tests/test_fail.py::test_warn
+  /home/dev/project/py/tests/test_fail.py:22: DeprecationWarning: deprecated api
+    warnings.warn("deprecated api", DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_fail.py::test_total - AssertionError: assert {'total': 10, ...
+FAILED tests/test_fail.py::test_prints - AssertionError: values differ
+FAILED tests/test_fail.py::test_error - KeyError: 'missing-key'
+======== 3 failed, 151 passed, 1 skipped, 1 xfailed, 1 warning in 0.07s ========

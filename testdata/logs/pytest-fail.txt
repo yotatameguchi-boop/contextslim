@@ -1,0 +1,59 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/dev/project/py
+collected 156 items
+
+tests/test_fail.py FFsx.F                                                [  3%]
+tests/test_mod1.py ...............                                       [ 13%]
+tests/test_mod10.py ...............                                      [ 23%]
+tests/test_mod2.py ...............                                       [ 32%]
+tests/test_mod3.py ...............                                       [ 42%]
+tests/test_mod4.py ...............                                       [ 51%]
+tests/test_mod5.py ...............                                       [ 61%]
+tests/test_mod6.py ...............                                       [ 71%]
+tests/test_mod7.py ...............                                       [ 80%]
+tests/test_mod8.py ...............                                       [ 90%]
+tests/test_mod9.py ...............                                       [100%]
+
+=================================== FAILURES ===================================
+__________________________________ test_total __________________________________
+
+    def test_total():
+>       assert compute(10) == {"total": 11, "tax": 1}
+E       AssertionError: assert {'total': 10, 'tax': 1} == {'total': 11, 'tax': 1}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'total': 10} != {'total': 11}
+E         Use -v to get more diff
+
+tests/test_fail.py:7: AssertionError
+_________________________________ test_prints __________________________________
+
+    def test_prints():
+        print("debug value", 42)
+>       assert 1 == 2, "values differ"
+E       AssertionError: values differ
+E       assert 1 == 2
+
+tests/test_fail.py:11: AssertionError
+----------------------------- Captured stdout call -----------------------------
+debug value 42
+__________________________________ test_error __________________________________
+
+    def test_error():
+>       raise KeyError("missing-key")
+E       KeyError: 'missing-key'
+
+tests/test_fail.py:25: KeyError
+=============================== warnings summary ===============================
+tests/test_fail.py::test_warn
+  /home/dev/project/py/tests/test_fail.py:22: DeprecationWarning: deprecated api
+    warnings.warn("deprecated api", DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_fail.py::test_total - AssertionError: assert {'total': 10, ...
+FAILED tests/test_fail.py::test_prints - AssertionError: values differ
+FAILED tests/test_fail.py::test_error - KeyError: 'missing-key'
+======== 3 failed, 151 passed, 1 skipped, 1 xfailed, 1 warning in 0.10s ========

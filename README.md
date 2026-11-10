@@ -35,34 +35,134 @@ Claude Code のフック（PreToolUse・PostToolUse）として動きます。�
 
 次の場合は**原文をそのまま通します**：未対応のコマンドや形式、パイプ（`|`）・`&&`・`;`・リダイレクト・`$VAR`・`$(...)` を含むコマンド、出力形式を変えるオプション（`--reporter=json`、`--watch`、`--output-format json` など）、未検証のツール版、要約行がない（中断・実行途中の）出力、解析器が認識できずエラーや失敗に言及している行、情報保持の検証に失敗した場合、削減量が足りない場合、原文の保存に失敗した場合、処理時間の予算を超えた場合、内部エラー。
 
-## インストール
+## インストールと使い方
 
-Go をインストールしなくても動く単一バイナリです。
+### 必要なもの
+
+- Claude Code（2.1.322 で動作確認済み）
+- Go 1.22 以上（ビルドに使います。ビルド済みバイナリはまだ配布していません）
+- macOS または Linux。Windows でも動きますが、失敗時の出力は圧縮されません（[ラッパー方式と権限](#ラッパー方式と権限)）
+
+### 1. ダウンロードしてビルドする
 
 ```bash
-scripts/build-release.sh          # dist/ に OS・CPU 別のバイナリを生成
+git clone https://github.com/yotatameguchi-boop/contextslim.git
+cd contextslim
+go build -o contextslim ./cmd/contextslim
 ```
 
-（開発時は `go build -o contextslim ./cmd/contextslim` でも構いません。）
+`contextslim` という実行ファイルができます。
 
-PATH の通った場所にバイナリを置き、対象プロジェクトで次を実行します。
+### 2. 実行ファイルを PATH の通った場所に置く
 
 ```bash
+mkdir -p ~/.local/bin
+mv contextslim ~/.local/bin/
+contextslim version
+```
+
+`contextslim 0.1.0-dev ...` と表示されれば OK です。`command not found` になる場合は、`~/.local/bin` を PATH に追加してください（例：`~/.zshrc` に `export PATH="$HOME/.local/bin:$PATH"`）。
+
+> 次の手順で、この**実行ファイルの場所**が Claude Code の設定に書き込まれます。あとで実行ファイルを移動したら、手順 3 をやり直してください。
+
+### 3. 使いたいプロジェクトに登録する
+
+```bash
+cd ~/path/to/your-project
 contextslim install
 ```
 
-`.claude/settings.local.json` に `PreToolUse`・`PostToolUse`・`PostToolUseFailure` のフックを登録します。チームで共有する `.claude/settings.json` に登録するときは `--shared`、全プロジェクトに登録するときは `--user` を付けます。
+- `.claude/settings.local.json` に ContextSlim のフックが追加されます。ほかの設定はそのまま残り、変更前のバックアップ（`settings.local.json.contextslim-backup-<日時>`）も作られます。
+- 登録したら、**Claude Code のセッションを開き直して**ください。
 
-- 既存の設定はキーの順序も含めて保持し、ContextSlim のフックだけを追加・更新します（インデントは 2 スペースに揃えます）。
-- 変更前に `<設定ファイル>.contextslim-backup-<日時>` を作成します。
-- 繰り返し実行しても重複しません。
-- 解除は `contextslim uninstall` です。ContextSlim が登録したフックだけを削除します。
+### 4. 正しく登録できたか確認する
 
-初期状態は **observe モード**です。出力は変更せず、圧縮候補と統計だけを記録します。統計を確認してから有効化してください。
+```bash
+contextslim doctor
+```
+
+`[NG]` がなければ OK です。`[WARN]` は内容を読んで、必要なら対処してください。
+
+### 5. まずは観測モードで使ってみる
+
+最初は **observe（観測）モード**です。この状態では Claude に渡る出力は**一切変わりません**。どれだけ削れそうかを記録するだけです。
+
+いつもどおり Claude Code でテストなどを実行してもらったあと、統計を見ます。
 
 ```bash
 contextslim stats
+```
+
+「観測のみの候補」に、圧縮していた場合のバイト数が表示されます。
+
+### 6. 圧縮を有効にする
+
+```bash
 contextslim mode compress
+```
+
+これで、対応するコマンドの出力が圧縮されて Claude に渡るようになります。
+
+**失敗したテストも圧縮したい場合は、テストコマンドを許可ルールに入れてください。** ContextSlim は、Claude Code が確認なしで実行するコマンドだけを差し替える（ラップする）ためです。許可されていないコマンドは差し替えず、終了コード0（全件成功など）のときだけ圧縮します。
+
+許可ルールは `.claude/settings.json`（または `settings.local.json`）の `permissions.allow` に書きます。
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vitest:*)",
+      "Bash(npx jest:*)",
+      "Bash(npx tsc:*)",
+      "Bash(pytest:*)",
+      "Bash(ruff check:*)"
+    ]
+  }
+}
+```
+
+Claude Code の確認画面で「今後このコマンドは確認しない」を選んだ場合も、同じ許可ルールが追加されます。
+
+### 7. 圧縮されていることを確かめる
+
+Claude にテストを実行してもらうと、結果の先頭に次のような2行が付きます。
+
+```text
+[contextslim] vitest output compressed. Removed: 41 passing-test lines. Failures, errors, diagnostics and the tool's own summary are verbatim below.
+[contextslim] Full original (114 lines): /home/you/.local/bin/contextslim show cs_edd8f682995a1702be78   (range: --from N --to M)
+```
+
+- 失敗したテストの内容、エラー、ツール自身の要約行は**そのまま**残っています。
+- 元の出力全体が必要になれば、Claude が2行目のコマンドで取り出せます。自分で見るときも同じコマンドを使えます。
+- `contextslim stats` の「ラップしなかった理由」で、圧縮されなかったコマンドの理由を確認できます（`not_explicitly_allowed` なら、手順 6 の許可ルールがありません）。
+
+### 元に戻すとき
+
+| やりたいこと | コマンド |
+| --- | --- |
+| 圧縮を止める（記録だけ続ける） | `contextslim mode observe` |
+| プロジェクトから外す | そのプロジェクトで `contextslim uninstall` |
+| 保存した原文と統計も消す | `contextslim config` で表示される「データ保存先」のフォルダを削除 |
+
+`uninstall` は ContextSlim が追加したフックだけを削除し、ほかの設定には触れません。
+
+### install のオプション
+
+| オプション | 登録先 |
+| --- | --- |
+| （なし） | `<プロジェクト>/.claude/settings.local.json`（自分だけ・このプロジェクトだけ） |
+| `--shared` | `<プロジェクト>/.claude/settings.json`（チームで共有。実行ファイルのパスも共有されるので注意） |
+| `--user` | `~/.claude/settings.json`（自分の全プロジェクト） |
+| `--project DIR` | カレントではなく DIR のプロジェクトに登録 |
+
+何度実行しても重複しません。ファイルのインデントは2スペースに揃えます。
+
+### OS・CPU 別のバイナリを作る
+
+配布用に全 OS・CPU 向けのバイナリをまとめて作るときは、次を実行します（`dist/` に出力）。
+
+```bash
+scripts/build-release.sh
 ```
 
 ## ラッパー方式と権限

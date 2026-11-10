@@ -1,0 +1,5 @@
+# Keep source files LF on every OS.
+* text=auto eol=lf
+# Test logs and goldens are compared byte for byte (they contain ANSI codes);
+# never convert their line endings.
+testdata/** -text

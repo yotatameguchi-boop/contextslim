@@ -58,7 +58,7 @@ Claude Code のフック（PreToolUse・PostToolUse）として動きます。�
 
 ```bash
 mkdir -p ~/.local/bin
-curl -fL -o ~/.local/bin/contextslim https://github.com/yotatameguchi-boop/contextslim/releases/download/v0.1.0/contextslim_v0.1.0_darwin_arm64
+curl -fL -o ~/.local/bin/contextslim https://github.com/yotatameguchi-boop/contextslim/releases/download/v0.1.1/contextslim_v0.1.1_darwin_arm64
 chmod +x ~/.local/bin/contextslim
 ```
 
@@ -85,7 +85,7 @@ mv contextslim ~/.local/bin/
 contextslim version
 ```
 
-`contextslim v0.1.0 ...` と表示されれば OK です。`command not found` になる場合は、`~/.local/bin` を PATH に追加してください（例：`~/.zshrc` に `export PATH="$HOME/.local/bin:$PATH"` を書いて、ターミナルを開き直す）。
+`contextslim v0.1.1 ...` と表示されれば OK です。`command not found` になる場合は、`~/.local/bin` を PATH に追加してください（例：`~/.zshrc` に `export PATH="$HOME/.local/bin:$PATH"` を書いて、ターミナルを開き直す）。
 
 > 次の手順で、この**実行ファイルの場所**が Claude Code の設定に書き込まれます。あとで実行ファイルを移動したら、手順 3 をやり直してください。
 

@@ -360,3 +360,9 @@ go test ./internal/pipeline -run '^$' -bench .  # 1 MiB ログのベンチマー
 | 失敗時の出力の扱い | ラッパー方式で対応（Linux・macOS）。Windows は終了コード0の出力のみ |
 
 評価方法 7.2（同じ課題で圧縮なし／ありを複数回比較する評価）は、まだ実施していません。
+
+## ライセンス
+
+[MIT License](LICENSE)。無保証で提供します。ContextSlim は Bash コマンドの実行と出力に関わるため、`observe` モードで動作を確かめてから `compress` モードを有効にしてください。
+
+ContextSlim は個人のプロジェクトで、Anthropic とは関係ありません。

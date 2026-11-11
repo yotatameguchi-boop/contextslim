@@ -164,3 +164,37 @@ func TestLiteralHTMLCharactersRoundTrip(t *testing.T) {
 		t.Fatalf("%q", v.Stdout)
 	}
 }
+
+// Pruning (which removes empty session directories) must never make a
+// concurrent SaveRaw fail. Regression: removeEmptyDirs deleted a session
+// directory between SaveRaw's MkdirAll and its file creation.
+func TestSaveRawConcurrentWithPrune(t *testing.T) {
+	s := New(t.TempDir())
+	stop := make(chan struct{})
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for {
+			select {
+			case <-stop:
+				return
+			default:
+				s.Prune(PruneOptions{Retention: time.Hour, MetricsRetention: time.Hour, MaxBytes: 1 << 30})
+			}
+		}
+	}()
+	for i := 0; i < 300; i++ {
+		r := rec(string(rune('a' + i%20)))
+		id, err := s.SaveRaw(r, time.Hour)
+		if err != nil {
+			close(stop)
+			wg.Wait()
+			t.Fatalf("save %d failed during concurrent prune: %v", i, err)
+		}
+		// Make the session directory empty again so prune targets it.
+		os.Remove(filepath.Join(s.Dir, "raw", r.SessionKey, id+".json"))
+	}
+	close(stop)
+	wg.Wait()
+}

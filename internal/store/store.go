@@ -169,12 +169,26 @@ func (s *Store) SaveRaw(rec Record, retention time.Duration) (string, error) {
 		if errors.Is(err, fs.ErrExist) {
 			continue
 		}
+		if errors.Is(err, fs.ErrNotExist) {
+			// The session directory vanished (another process pruned it):
+			// recreate it and try again.
+			if err := os.MkdirAll(dir, 0o700); err != nil {
+				return "", err
+			}
+			continue
+		}
 		if err != nil {
 			return "", err
 		}
 		f.Close()
 		if err := writeAtomic(dir, final, b); err != nil {
 			os.Remove(final)
+			if errors.Is(err, fs.ErrNotExist) {
+				if err := os.MkdirAll(dir, 0o700); err != nil {
+					return "", err
+				}
+				continue
+			}
 			return "", err
 		}
 		return id, nil
@@ -472,10 +486,17 @@ func (s *Store) removeEmptyDirs() {
 	if err != nil {
 		return
 	}
+	now := s.Now()
 	for _, e := range entries {
-		if e.IsDir() && sessionKeyPattern.MatchString(e.Name()) {
-			_ = os.Remove(filepath.Join(s.rawDir(), e.Name())) // fails if not empty
+		if !e.IsDir() || !sessionKeyPattern.MatchString(e.Name()) {
+			continue
 		}
+		// A directory created or changed recently may be about to receive a
+		// file from a concurrent SaveRaw; leave it alone.
+		if fi, err := e.Info(); err != nil || now.Sub(fi.ModTime()) < ProtectAge {
+			continue
+		}
+		_ = os.Remove(filepath.Join(s.rawDir(), e.Name())) // fails if not empty
 	}
 }
 
